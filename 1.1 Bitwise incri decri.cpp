@@ -73,6 +73,23 @@ int a = 10
 Cout<<(++a)*(a++) output = 121/132
 Cout<<((a++)*(++a)) output = 120  //Need to look into why this is happening 
 
+Questions - 
+n &= (n-1) what does this do ?
+
+The expression:
+
+c
+Copy
+Edit
+n &= (n - 1);
+is shorthand for:
+
+c
+Copy
+Edit
+n = n & (n - 1);
+And just like before, it clears the rightmost set bit (1) in n.
+
 // Break and continue /////////////////////////////////
 
 Break- 

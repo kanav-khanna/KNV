@@ -497,3 +497,93 @@ int main() {
     }
     return 0;
 }
+
+
+// Special pattern 
+//This has 17 columns in every row 
+//only works upto 9 ...not for more
+********1********
+*******2*2*******
+******3*3*3******
+*****4*4*4*4*****
+****5*5*5*5*5****
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n = 5;
+    for(int i = 0; i<n;i++) 
+    {   int start_num = 8-i;
+        int num = i+1;
+        int count = num;
+        for(int j = 0;j<17;j++)
+        {   
+            if(j == start_num && count>0)
+            {
+                cout<<num;
+                start_num+=2;
+                count--;
+            }
+            else{
+                cout<<"*";
+            }
+            
+        }
+        cout<<endl;
+    }
+
+}
+
+//Special pattern 
+
+1
+2*3
+4*5*6
+7*8*9*10
+7*8*9*10
+4*5*6
+2*3
+1
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n = 4;
+    int num = 1;
+    for(int i = 1; i<=n;i++) //row we keep dectreasing them 
+    {       //cout<<"*"; 
+           for(int j = 1; j<=i;j++) //col fill the column with one less each time 
+            {  
+               
+               cout<<num;
+               if(j<i){
+               cout<<"*";
+               }
+              num++;
+              }
+              
+           cout<<endl;     
+    } 
+    num = num-n;
+    int start = num;
+    
+    for(int i = 0; i<n;i++) //row we keep dectreasing them 
+    {       //cout<<"*"; 
+        int k = start;
+           for(int j = 0; j<=n-i-1;j++) //col fill the column with one less each time 
+            {  
+               cout<<k;
+                
+               if(j<n-i-1){
+               cout<<"*";
+               } 
+              k++;
+              }
+              start = start -(n-i-1);
+           cout<<endl;     
+    }   
+}
+
+/////////Fancy pattern #3
