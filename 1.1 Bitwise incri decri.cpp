@@ -131,3 +131,53 @@ created outside any loops or funtions and accessable everywhere
 
 
 ((2*3)+(5/10))-2
+
+
+/// odd even Bit wise solution/////////////////////////////////////IMP////////////////////////
+
+the cpu stores numbers in its registers ...and the +- operations are done on these registers 
+
+All even numbers in binary have their Least significan bit(lsb) set to 0 ...always 
+even -> 1101010 ....Last digit is 0 so its even 
+
+All the odd numbes have the LSB set to 1 
+
+4 - 
+0100
+0001
+-----
+0000  -> did & operation with 1 on 4 got all zero which means its even
+
+5- 
+0101
+0001
+-----
+0001  -> Did & operation with 1 on 5 then got 1 which means its an odd number 
+ 
+
+ #include<iostream>
+using namespace std;
+    
+bool evenodd(int b)
+    {
+    bool ans;
+   if((b&1)== 0)
+    {
+       ans = true;
+   }
+    else
+    {
+        ans = false;
+    }
+    return ans;
+}
+
+
+    int main() {
+        
+            int num = 5;
+            bool ans = evenodd(num);
+            cout<<ans;
+    }   
+
+    

@@ -42,165 +42,232 @@ int main() {
     cout<<ans;
 }
 
-#include <iostream>
+#include<iostream>
 using namespace std;
-
-// void printName(string name) {
-// 	for(int i=0; i<5; i++) {
-// 		cout << name << endl;
-// 	}
-// }
-
-
-//function delclaration
-// void printLine();
-
-// void printA() {
-// 	cout << "i am inside A" << endl;
-// }
-
-// void printSum(int a, int b, int c) {
-// 	int answer = a + b + c;
-// 	cout << "Sum is: " << answer << endl;
-// }
-
-// int printSum(int a, int b, int c) {
-// 	int ans = a + b + c;
-// 	return ans;
-// }
-
-
-// void messagePrint() {
-// 	cout << "Msg 1" << endl;
-	
-// 	cout << "Msg 2" << endl;
-// 	return;
-// }
-
-// void printMaximum(int num1, int num2, int num3) {
-// 	if(num1 >= num2 && num1 >= num3) {
-// 		cout << "Maximum is: " << num1 << endl;
-// 	}
-// 	else if(num2 >= num1 && num2 >= num3) {
-// 		cout << "Maximum is: " << num2 << endl;
-// 	}
-// 	else {
-// 		cout << "Maximum is: " << num3 << endl;
-// 	}
-	
-// }
-
-int printMaximum(int n1, int n2, int n3) {
-	int ans1 = max(n1,n2);
-	int finalAns = max(ans1, n3);
-	// cout << "final Ans is: " << finalAns << endl;
-	return finalAns;
- }
-
-
-void printCounting(int n) {
-	for(int i=1; i<=n; i++) {
-		cout << i << endl;
-	}
-}
-
-void checkEvenOdd(int num) {
-	if(num % 2 == 0) {
-		cout << "Even Number" << endl;
-	}
-	else {
-		cout << "Odd Number" << endl;
-	}
-} 
-
-void findSumUptoN(int n) {
-	int sum = 0;
-
-	for(int i=1; i<=n; i++) {
-		sum = sum + i;
-	}
-
-	cout << "Final Sum: " << sum << endl;
-	
-}
-
-void findSumEvenUptoN(int n) {
-	int sum = 0;
-
-	for(int i=1; i<=n; i++) {
-		if(i%2 ==0) {
-			sum = sum + i;
-		}
-		
-	}
-
-	cout << "Final Sum: " << sum << endl;
-	
-}
-
-//return true -> if N is a prime no.
-//return false -> if N is not a prime no.
-
-bool checkPrime(int n) {
-
-	for(int i=2; i<n; i++) {
-		if(n%i == 0) {
-			//remainder = 0 -> perfectly divisible
-			//not a prime numbner
-			return false;
-		}
-	}
-	//yaha pr main keh skta hu
-	//k [ 2,3,4,5 ------ n-1 ], koi bhi N ko perfectly divide 
-	//nahi kar paya hoga
-
-	//it means, N is a prime no.
-	return true;
-	
+    
+float circle(int a)
+    {
+    float ans = 3.14*a*a;
+    //cout<< ans;
+    return ans;    
 }
 
 
+    int main() {
+        
+            float rad = 5;
+            float ans = circle(rad);
+            cout<<ans;
 
-int main() {
-
-	bool prime = checkPrime(1);
-
-	if(prime) {
-		cout << "its a prime number" << endl;
-	}
-	else {
-		cout << "its not a prime number" << endl;
-	}
-
-	//findSumEvenUptoN(10);
-	
-	//checkEvenOdd(110);
-	
-	//printCounting(10);
-
-	// int maximum = printMaximum(3, 30, 100);
-	// cout << " Maximum is: " << maximum << endl;
+    }   
 
 
-	
-	//messagePrint();
-
-	// int sum = printSum(4, 4, 5);
-	// cout << "Sum is: " << sum << endl;
-	
-	// printSum(1,2,7);
-
-	//function call
-	// printLine();
-	// cout << "Hi" << endl;
-	// printA();
-	
-    return 0;
+//factorial 
+#include<iostream>
+using namespace std;
+    
+int factorial(int b)
+{   
+    long long int ans = 1;
+    
+    for(int i =1;i<=b;i++)
+    {
+        ans = ans*i;
+    }
+    return ans;
 }
 
-// void printLine() {
-// 	for(int i=0; i<10; i++) {
-// 		cout << "Sundar ko Sundari pasand hai" << endl;
-// 	}
-// }
 
+    int main() {
+        
+            int num = 13;
+            long long int ans = factorial(num);
+            cout<<ans;
+    }   
+
+
+// number is Prime or not 
+
+#include<iostream>
+using namespace std;
+    
+bool factorial(int b)
+{   
+    long long int ans = 1;
+    int i = 2;
+    for(i=2;i<b;i++) // optimized solution insted of running the code till N we run it till sqrt(n) .maths has proof that known prime will have a factor in less than square root of n 
+    { 
+        if(b%i == 0)
+        {
+            return false;
+        }
+        
+    }
+    return true;
+}
+
+
+    int main() {
+        
+            int num = 6;
+            bool ans = factorial(num);
+            cout<<ans;
+    }   
+
+////Print all prime form 1 to N
+#include<iostream>
+using namespace std;
+    
+bool factorial(int b)
+{   
+    long long int ans = 1;
+    int i = 2;
+    for(i=2;i<sqrt(b);i++)
+    {
+        if(b%i == 0)
+        {
+            return false;
+        }
+        
+    }
+    return true;
+}
+
+
+    int main() {
+            
+
+            int num = 6;
+            
+           for(int i = 2;i<num;i++)
+            {
+               bool ans = factorial(i);
+               
+               if(factorial)
+                {
+                   cout<<i<<" ";
+               }
+           }
+    }     
+
+
+	///https://www.geeksforgeeks.org/problems/set-kth-bit3724/1
+
+	Set the K-th bit of a given number
+
+	class Solution {
+  public:
+    int setKthBit(int n, int k) {
+        // Code here
+        int mask = 1<<k;               
+        int ans = n|mask;
+        return ans;
+    }
+};
+
+Since we have to change the Kth bit we ceate a mask with 1 at the position of k ...so that only that bit is effected rest all zeros 
+and then we do a OR operation this enables ...others to be uneffected
+
+
+
+////////////////////2469. Convert the Temperature https://leetcode.com/problems/convert-the-temperature/description/
+//For vectors use .push_back to avoid any issues of values being set 
+
+class Solution {
+public:
+    vector<double> convertTemperature(double celsius) {
+        vector <double> ans;
+        double k = celsius+273.15;
+        double f = celsius * 1.80 + 32.00;
+        ans.push_back(celsius+273.15);
+        ans.push_back(celsius * 1.80 + 32.00);
+        //ans[0] = celsius+273.15;
+        //ans[1] = celsius * 1.80 + 32.00;
+        return ans;
+    }
+};
+
+/// create number using digits 
+num = num *10+digit
+
+///////////////////////////Print all digits of an integer////////////////////////// 
+#include<iostream>
+using namespace std;
+    
+void digits(int n)
+{   
+   while(n>0)
+   {
+       int onesplace = n%10;
+       n = n/10;
+       cout<<onesplace;
+   }
+}
+
+
+    int main() {            
+        int n = 1234;
+        digits(n);     
+    }     
+
+
+7. Reverse Integer
+
+https://leetcode.com/problems/reverse-integer/description/
+
+class Solution {
+public:
+    int reverse(int x) {
+        int ans = 0; // Initialize the reversed number to 0
+        while (x != 0) {
+            int digit = x % 10; // Get the last digit of x
+            
+            // Check for overflow/underflow before updating ans
+            if ((ans > INT_MAX / 10) || (ans < INT_MIN / 10)) {
+                return 0; // Return 0 if reversing x would cause overflow/underflow
+            }
+            
+            ans = ans * 10 + digit; // Append the digit to the reversed number
+            x = x / 10; // Remove the last digit from x
+        }
+        return ans; // Return the reversed number
+    }
+};
+
+////Given an integer count the number of set bits in it 
+
+N= 34 binary = 100010 (Set bits means 1) 
+So 34 has 2 set bits 
+ 
+ 1. how to convert any number to binary 
+ 2. the find the 1 if bit == 1 then count ++
+ 3. n = n/2 ....this is so you can keep deviding and not just deviding the same number
+
+
+ #include<iostream>
+using namespace std;
+    
+int setbit(int n)
+{   
+    
+    int count = 0;
+    while(n>0){
+        int bit = n%2;
+        if(bit==1)
+        {
+            count++;
+        }
+        n=n/2;
+            
+    }
+    return count;
+    
+}
+
+
+    int main() {
+            
+    int n = 34;
+    int set = setbit(n);
+        cout<<set;       
+    }     

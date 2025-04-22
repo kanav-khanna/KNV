@@ -654,3 +654,49 @@ int main() {
 }
 
 
+///butterfly pattern
+// this question and the 2 before it no clue how the equations were derived for these i need to spend some time on how the equations were made so i can make them aswell
+
+
+*        *
+**      **
+***    ***
+****  ****
+**********
+**********
+****  ****
+***    ***
+**      **
+*        *
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n = 5;
+    for(int i = 0; i<2*n;i++) 
+    {    
+        int cond = i<n ? i : n+(n-i-1);
+        int space = i < n ? 2*(n-cond-1): i-cond-1;
+        for(int j = 0; j<2*n; j++)  
+        {
+            if(j<=cond)
+            {
+                cout<<"*";
+            }
+            
+            else if(space >0)
+            {
+                cout<<" ";
+                space--;
+            }
+            
+            else
+            {
+                cout<<"*";
+            }
+        }
+        cout<<endl;
+    }
+
+}
