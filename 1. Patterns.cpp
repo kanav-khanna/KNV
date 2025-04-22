@@ -587,3 +587,70 @@ int main() {
 }
 
 /////////Fancy pattern #3
+
+1
+121
+12321
+121
+1
+
+//i = i , j = 2*i in the growing phase  
+
+In the above pattern we have a growing phase and a shrinking phase and both need to be handeled with a condition
+growing n/2 = 0->2
+
+
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n = 5;
+    
+    for(int i = 0; i<n;i++)
+    {   int cond = i<=n/2 ? 2*i: 2*(n-i-1);    // first condition is growing phase and second one is shrinking phase for ROW 
+        for(int j = 0;j<=cond;j++)
+        {
+            
+            if(j<=cond/2)
+            {
+                cout<<j+1;    //Column condition for growing
+            }
+            else{
+                cout<<cond-j+1; //column condition for shrinking
+            }
+        }
+        cout<<endl;
+    }
+}
+/////////////Pascals triangle pattern 
+
+1 
+1 1 
+1 2 1 
+1 3 3 1 
+1 4 6 4 1 
+
+you start with a 1 and the sum of the 2 adjesent values will be the number under it 
+
+pASCAL - binomial coefficent formula 
+Formula - c = c *(i-j)/j;
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n = 5;
+    
+    for(int i = 1; i<=n;i++)
+    {int c = 1;
+        for(int j = 1;j<=i; j++)
+            {
+            cout<<c<<" ";
+            c = c*(i-j)/j; // this formula used to print 
+        }
+     cout<<endl;
+    }
+}
+
+
