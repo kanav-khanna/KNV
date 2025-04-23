@@ -10,7 +10,7 @@ int main() {
             {  
                cout<<"*";
            }
-        cout<<endl;|
+        cout<<endl;
     }  
     
 }
@@ -26,10 +26,10 @@ int main() {
         
            for(int j = 0; j<n;j++) //col
             {  
-               if(i==0||i== n-1||j==0||j==n-1)
-               {
-                   cout<<"*";
-               }
+               if(i==0||i== n-1||j==0||j==n-1)  //i is row so i ==n-1 is the bottom row
+               {                                //j is col so j == n-1 is the last col printed so right side of square
+                   cout<<"*";                   //i == 0 will be th top of the square  
+               }                                //j == 0 will be the first column so lsft side
                else
                {
                    cout<<" ";
@@ -61,7 +61,7 @@ int main() {
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= i; j++) {
             // Print star at the borders and on the last row
-            if(j == 1 || j == i || i == n) {
+            if(j == 1 || j == i || i == n) { 
                 cout << "*";
             } else {
                 cout << " ";
@@ -73,6 +73,12 @@ int main() {
 }
 
 //Inverted pyramid code 
+
+****
+***
+**
+*
+
 #include<iostream>
 using namespace std;
 
@@ -99,8 +105,9 @@ int main() {
     for(int i = 0; i<n;i++) //row
     {       //cout<<"*"; 
            for(int j = 0; j<n;j++) //col
-            {  
-               if(i == 0 || j == 0 || j == n-i-1) ///j == n-rows-1 is just a foormila that you need to remember vreated because of the corralation between the values of the triagle that need to be printed 
+            {                                     //j == 0 is the left side col
+                                                  //i == 0 is the right side row               
+               if(i == 0 || j == 0 || j == n-i-1) ///j == n-rows-1 is just a formula that you need to remember created because of the corralation between the values of the triagle that need to be printed 
                {
                 cout<<"*";
                }
@@ -137,6 +144,7 @@ if i have 3 rows -> 5 columns
 5    * * * * * * * * *      
 
 so in the for loops i will need n number of rows and 2n-1 numebr of columns
+N is actually the midpoint since 2n-1 is the total columns
 In the above figure if we look at the spots where we need to print Stars their is a pattern 
 in the first row N is printed 
 in second column N, N-1, and N+1 
@@ -152,7 +160,7 @@ int main() {
     {    
         for(int j = 0; j<= 2*n-1; j++) //2n-1 is the formula to find the number of columns since only row is given 
         {
-            if(j>=n-(i-1)&& j<=n+(i-1))
+            if(j >= n - i && j <= n + i) //   For row i, you want to print * from: j = n - i to j = n + i
             {
                 cout<<"*";
             }
@@ -188,6 +196,11 @@ Should not be printed -
 3,4  3,5  3,6
 4,3  4,4  4,5  4,6  4,7
 
+//j == n - 1 - i → left edge of pyramid
+
+//j == n - 1 + i → right edge of pyramid
+
+//i == n - 1 → last row → fully filled with stars
 
 #include<iostream>
 using namespace std;
@@ -217,6 +230,8 @@ int main() {
 }
 
 //Pyramid reverse 
+
+
 #include<iostream>
 using namespace std;
 
@@ -226,9 +241,9 @@ int main() {
     {    
         for(int j = 0; j < 2*n - 1; j++)
         {
-            if(j >= i && j < 2*n - 1 - i)  <- this has been updated we start with max columns then they start reducting with every step
+            if(j >= i && j < 2*n - 1 - i) // <- this has been updated we start with max columns then they start reducting with every step
             {
-                cout << "*";
+                cout << "*";    
             }
             else{
                 cout << " ";
@@ -237,7 +252,10 @@ int main() {
         cout << endl; 
     }
 }
+
+
 // reverse hollow 
+
 #include<iostream>
 using namespace std;
 
@@ -252,7 +270,7 @@ int main() {
                 cout << "*"; // Top row is solid
             }
             else if(j == i || j == 2*n - 2 - i) { // in normal we use 2*n - 1 - i but here we use -2 since 1 row is solid   
-                cout << "*"; // Sides of the inverted pyramid
+                cout << "*"; // Sides of the inverted pyramid // j == i is the left side stars and j == 2*n-2-i is the right side stars while the i =0 is to print the solid first line
             }
             else {
                 cout << " ";
@@ -499,7 +517,7 @@ int main() {
 }
 
 
-// Special pattern 
+//Special pattern 
 //This has 17 columns in every row 
 //only works upto 9 ...not for more
 ********1********
@@ -581,7 +599,7 @@ int main() {
                } 
               k++;
               }
-              start = start -(n-i-1);
+              start = start -(n-i-1); //reset the number being printed...so it correctly prints from left to right 
            cout<<endl;     
     }   
 }
@@ -674,7 +692,7 @@ using namespace std;
 
 int main() {
     int n = 5;
-    for(int i = 0; i<2*n;i++) 
+    for(int i = 0; i<2*n;i++) //2*n because 2 triangles being printed so n is double 
     {    
         int cond = i<n ? i : n+(n-i-1);
         int space = i < n ? 2*(n-cond-1): i-cond-1;

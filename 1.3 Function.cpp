@@ -1,5 +1,5 @@
 
-A function a a block of code that is linked to a well defined task 
+A function is a block of code that is linked to a well defined task 
 
 In c++ you have to define a function before you call it. You cannot call it first and then have the definition under it.
 

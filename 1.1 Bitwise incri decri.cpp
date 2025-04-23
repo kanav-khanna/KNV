@@ -26,7 +26,7 @@ Bitwise operator
  0  1  1
 
 4. Xor ^
-    7 ^ 4; 0 on same value and 1 on different 
+    7 ^ 4; //0 on same value and 1 on different 
 
        1  1  1
     ^  1  0 0
@@ -65,13 +65,25 @@ Output 160 ........becasue 5 X (2 to the power 5 which is 32)
 Pre/post increment decrement operator 
 a++ a--
 
-Pre increment - Phele istemal kere fir wishwas kara (first incriment then use)  int n = 5 cout<< (++n); Output = 6
+iPre increment - Phele stemal kere fir wishwas kara (first incriment then use)  int n = 5 cout<< (++n); Output = 6
 Post increment - Phele use karo then increment karo (first use value then increment value) int n = 5 cout<< (n++); Output = 5
 Pre decrement - Phele decrement then use
 Post decrement - Use the value then decrement 
 int a = 10
 Cout<<(++a)*(a++) output = 121/132
-Cout<<((a++)*(++a)) output = 120  //Need to look into why this is happening 
+Cout<<((a++)*(++a)) output = 120  //Need to look into why this is happening  ///endefined behavious casses these issues 
+Your output is 120 because:
+
+    a++ → 10
+
+    ++a → 12 (after incrementing to 11 in between)
+
+    So: 10 * 12 = 120
+
+But: That’s relying on undefined behavior, and should be avoided.
+
+Always split such expressions into separate lines for safe and reliable code.
+
 
 Questions - 
 n &= (n-1) what does this do ?
@@ -138,7 +150,9 @@ created outside any loops or funtions and accessable everywhere
 the cpu stores numbers in its registers ...and the +- operations are done on these registers 
 
 All even numbers in binary have their Least significan bit(lsb) set to 0 ...always 
-even -> 1101010 ....Last digit is 0 so its even 
+even -> 1101010 ....Last digit is 0 so its even
+
+if LSB set to 1 then its an odd number 
 
 All the odd numbes have the LSB set to 1 
 
