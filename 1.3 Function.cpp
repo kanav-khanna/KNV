@@ -18,6 +18,10 @@ Incase you do want to do the above you need to declare the function before ..the
     oddly enought the return keyword can be used inside a void function ...as long aas you dont return any values 
 
 
+///Functions call by refrence and call by value 
+
+
+
 // my code 
 #include<iostream>
 using namespace std;
