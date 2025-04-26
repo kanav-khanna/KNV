@@ -20,8 +20,24 @@ Incase you do want to do the above you need to declare the function before ..the
 
 ///Functions call by refrence and call by value 
 
+//refrence variable 
+like a person can be called by multiple different names ...lassan adi ...
 
 
+int n = 5;
+int& K = n;  //this is a refrence variable to the N variable //this is sort of a alias for n we not call it as K
+
+refrence variable can point to another variable but you cannot use it so set a value 
+ma kisi vaiable ka nick name ban sakta hu kisi constent ka nahi 
+if we print n or k the output will be the same 
+
+
+//the normal function calls we do are call by value in this the actual value is sent over to the function
+
+// call by refrence 
+void incrementby1(int &n) //The & signifies call by refrence where if the value of N is updated it will also be updated where it was passed from 
+    {
+    }
 // my code 
 #include<iostream>
 using namespace std;
