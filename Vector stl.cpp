@@ -21,4 +21,4 @@ vector <vector<int>> arr
 
 //interesting declaration method 
 vector <vector<int>> arr(5, vector<int>(10,0))
-2d arrat             //arr is the name  //5 is row size // row item initialized with vector of size 10 that has the value of 0 in all of them 
+2d arrat             //arr is the name  //5 is row size // row item initialized with vector of size 10 that has the value of 0 in all of them s
