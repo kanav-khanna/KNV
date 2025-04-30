@@ -119,7 +119,7 @@ in this we notice that [0,0] index is swapped with [0,0]
 //array extra class 
 //2 pointer approch questions 
 Question imput array has apositive and negative numbers the output should be negative numbers of left side and positive on right side 
-
+//move all the negative numbers to the left side of the array 
 Approch - 
 1.sorting 
 2.2 pointer approch 
@@ -335,4 +335,165 @@ https://leetcode.com/problems/rearrange-array-elements-by-sign/description/
 ///////2643. Row With Maximum Ones
 https://leetcode.com/problems/row-with-maximum-ones/description/
 
-/   
+//the blow is not the best most optimized solution but it works lol
+class Solution {
+    public:
+        vector<int> rowAndMaximumOnes(vector<vector<int>>& mat) {
+            int n = mat.size();
+            int onecount = INT_MIN;
+            int rownum = 0;
+            vector<int> ans;
+            
+    
+            for(int i =0;i<n;i++)
+                {
+                    int count = 0; //count 0 before every row start
+                    for(int j = 0; j<mat[i].size();j++) //i row then size is the size of row ///*****the size thing is import ant ofr 2 d vector traversal and not having this casued my initial issues
+                        {    
+                            if(mat[i][j] == 1)
+                                {
+                                    count++; //if 1 found then increment count 
+                                }
+    
+                        }
+                    //after row comletion compare count with onecount
+                    if(count>onecount)
+                        {
+                            onecount = count;
+                        rownum = i;
+                        }
+    
+                }
+            ans.push_back(rownum);
+            ans.push_back(onecount);
+    
+            return ans;
+        }
+    };
+
+/////////48. Rotate Image ////babar has seen this question alot and its VVVVVV important 
+https://leetcode.com/problems/rotate-image/description/ 
+
+
+// this is a 2 step proccess 
+1. transpose the matrix //i think i did this question above were ...we take the upper triangle and change the values  
+2. then reverse it 
+
+class Solution {      //time complexity 
+    public: 
+        void rotate(vector<vector<int>>& matrix) { 
+    
+         int n = matrix.size();
+         //transpose
+        
+        for(int i = 0;i<n;i++)
+            {
+                for(int j =i;j<matrix[i].size();j++)
+                    {
+                        swap(matrix[i][j], matrix[j][i]);    //n square time complexity 
+                    }
+            }
+    
+        //reverse all the rows 
+    
+        for(int i = 0; i<n; i++)
+            { 
+                reverse(matrix[i].begin(), matrix[i].end());  ...n square time complexity ....so overall this is n square time complexity 
+            }
+           
+        } 
+    
+        
+    };
+ 
+//// function to reverse a vector 
+void reverseVector(vector<int>& arr) {
+        int n = arr.size();
+        int start = 0;
+        int end = n-1;
+
+        while(start < end) {
+            swap(arr[start], arr[end]);
+            start++;
+            end--;
+        }
+
+//Assignment- 
+
+//////1. Two Sum/////////////////
+//Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+class Solution {
+    public:
+        vector<int> twoSum(vector<int>& nums, int target) {
+            vector<int> answer;
+            int sizeOfArray = nums.size();
+            for(int i = 0; i < sizeOfArray; i++) {
+                for (int j = i + 1; j < sizeOfArray; j++) {
+                    if (nums[i] + nums[j] == target) {
+                        answer.push_back(i);
+                        answer.push_back(j);
+                        return answer;
+                    }
+                }
+            }
+            return answer; //so i return an vector it just automatically takes all the values from it 
+        }
+    };
+
+///////724. Find Pivot Index
+
+
+/////75. Sort Colors
+for(int i = 0; i<n-1;i++ )
+{
+    //cout<<"i="<<i<<endl;
+    for(int j=0;j<n-i-1;j++)
+        {
+            //cout<<"j="<<j<<endl;
+            if(nums[j]>nums[j+1])
+                {
+                    swap(nums[j], nums[j+1]);
+                }
+        }
+}
+
+}
+};
+
+///268. Missing Number
+class Solution {
+    public:
+        int missingNumber(vector<int>& nums) {
+    
+            int ans = 0;
+            //xor all array
+            for(int i = 0; i<nums.size();i++)  ///XOR the whole array 
+                {
+                    ans^=nums[i];
+                }
+            //xor all range 
+            int n = nums.size();
+    
+            for(int i = 0; i<=n ;i++)
+                {
+                    ans^=i; //then xor with i ...which should be each number in the array ..canncells ou t and only leaves the number missing 
+                }
+            return ans;
+        }
+    };
+
+//////////////287. Find the Duplicate Number
+place each number at its index solution -
+we place the number at its position and we swap with the number at its position
+when we try  to move a duplicate to its position we will notice its already at its position so then a duplicate can be found  
+class Solution {
+    public:
+        int findDuplicate(vector<int>& nums) {
+         while(nums[0] != nums[nums[0]])  //while the element is not at its index in the array if it is stop and return --nums[nums[0]] index position of the number we are checking 
+         {
+             swap(nums[0],nums[nums[0]]);
+         }
+         return nums[0];
+        }
+    }

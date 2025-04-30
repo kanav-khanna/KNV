@@ -291,3 +291,97 @@ int setbit(int n)
     int set = setbit(n);
         cout<<set;       
     }     
+
+    
+//169. Majority Element --this is solved but not the best solution i think 
+https://leetcode.com/problems/majority-element/description/
+
+
+//missing element from an array with duplicates 
+//array should have elements from 1 to n but their are duplicates and 1 element is missing 
+
+https://www.geeksforgeeks.org/find-missing-elements-from-an-array/ 
+
+///visited method
+//tc - O(n)
+sc -O(1)
+#include<iostream>
+using namespace std;
+
+void findmissing(int *arr, int n)
+    {
+    for(int i = 0;i<n;i++)
+    {
+        int index = abs(arr[i]); //we find the index
+        
+        if(arr[index-1]>0){ //if index is more than 0 that means its not visited
+            arr[index-1] *= -1; //then we visit it by setting it to negative
+        }
+    }
+    
+    for(int i = 0;i<n;i++)
+        {
+        // all prositive indexes are missing 
+        if(arr[i]>0)
+        cout<<i+1<<" ";
+    }
+}
+
+
+int main() {
+   //
+   int arr[] = {1,3,3,3,4};
+   int n = sizeof(arr)/sizeof(int);
+    findmissing(arr,n);
+    return 0;
+   
+     
+}
+
+///Sorting + swapping method 
+This solution was not fully running and i do not fully understand this thing - need to look at this tomorrow 
+#include<iostream>
+using namespace std;
+
+void findmissing(int *arr, int n)
+    {
+    int i =0;
+    while(i<n)
+    {   int index = arr[i] -1;
+       if(arr[i] != arr[index])
+       {
+           swap(arr[i], arr[index]);
+       }
+        else{
+            i++;
+        }
+    
+    }
+    for(int j = 0;j<n;j++)
+        {
+        cout<<arr[j]<<" ";
+    }
+    for(int i = 0;i<n;i++)
+        {
+        // all prositive indexes are missing 
+        if(arr[i] !=i+1){
+           
+        cout<<i+1<<" ";
+ 
+        }    
+    }
+    }
+    
+    
+
+
+
+int main() {
+   //
+   int arr[] = {1,3,3,3,4};
+   int n = sizeof(arr)/sizeof(int);
+    findmissing(arr,n);
+    return 0;
+   
+     
+}
