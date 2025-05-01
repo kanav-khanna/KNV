@@ -3,6 +3,7 @@
 
 //Approch is we XOR all the elements together then all the same one will cancel out and you will only be left with the unique one 
 //540. Single Element in a Sorted Array (did it but this is not the optimized approch)
+You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.
 #include<iostream>
 using namespace std;
 
@@ -29,16 +30,56 @@ int main() {
    
     for(int i = 0;i<3;i++)
     {
-        for(int j=0;j<3;j++){  //or(int j=i;j<3;j++)  in the same question if we start j with i then this helps remove duplicates 
+        for(int j=0;j<3;j++){  //or(int j=i;j<3;j++)  in the same question if we start j with i then this helps remove duplicates like you wont get 12 then 21
             cout<<nums[i]<<nums[j]<<endl;
         }
     }
     
 }
 
-//play around with loops and set them to run till 1/2 on i and j ...just to see what happens 
- //Question pair sum or two sum 
+//////////output 
+for(int j=0;j<3;j++)
+11
+12
+13
+21
+22
+23
+31
+32
+33
+for(int j=i;j<3;j++)
+11
+12
+13
+22
+23
+33
 
+
+
+//play around with loops and set them to run till 1/2 on i and j ...just to see what happens 
+//did try this got only 1 element for the first 3 elements if i was 3/2 and j was 3
+
+ //Question pair sum or two sum  //i may need to look at a better solution for this one
+ //Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+ class Solution {
+    public:
+        vector<int> twoSum(vector<int>& nums, int target) {
+            vector<int> answer;
+            int sizeOfArray = nums.size();
+            for(int i = 0; i < sizeOfArray; i++) {
+                for (int j = i + 1; j < sizeOfArray; j++) {
+                    if (nums[i] + nums[j] == target) {
+                        answer.push_back(i);
+                        answer.push_back(j);
+                        return answer;
+                    }
+                }
+            }
+            return answer; //so i return an vector it just automatically takes all the values from it 
+        }
+    };
 
  ///Question - print all triplets in an array 
  //pair of 3 
@@ -53,7 +94,7 @@ int main() {
     
      for(int i = 0;i<4;i++)
      {  
-         for(int j=i;j<4;j++){  //j = i and k = j in order to remove duplicates
+         for(int j=i;j<4;j++){  //j = i and k = j in order to remove duplicates //pretty much the same as print pairs but with another loop now 
              for(int k =j;k<4;k++){
              cout<<nums[i]<<nums[j]<<nums[k]<<endl;
              }
@@ -61,14 +102,41 @@ int main() {
      }
      
  }
+//another question i should look at similart to the above one - 3 Sum – Triplet Sum in Array
 
- //Question sort 0s and 1s in the array all 0 first then 1s
+//Question sort 0s and 1s in the array all 0 first then 1s
  //could just use sort
+//283. Move Zeroes
+Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
+//Brute force solution by me - O(n) time complexity for this solution but space is not the best 
+class Solution {
+    public:
+        void moveZeroes(vector<int>& nums) {
+            int j = 0;
+            int count = 0;
+            for (int i = 0; i < nums.size(); i++) {
+                if (nums[i] == 0) {
+                    count++;
+                }
+                if (nums[i] > 0 || nums[i]<0) { //<0 taken to handle cases with negative numbers //If number is non zero then we place it at start of array
+                    nums[j] = nums[i];
+                    j++;
+                }
+            }
+            cout<<nums.size()-count;
+            for(int i = nums.size()-1;i>(nums.size()-count)-1;i--)
+                {   
+                    //cout<<nums[i];
+                    nums[i] = 0;
+                    
+                }
+        }
+    };
 
  //shift arrays element by one
 
- #include<iostream>
+#include<iostream>
 using namespace std;
 
 int main() {
@@ -93,6 +161,52 @@ int main() {
 
 
 second diagonal print...//print the other diagnoal how ?
+//print diagonal and secondary diagonal     
+// C++ Program to print the Diagonals of a Matrix
+//Time Complexity: O(n). 
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX = 100;
+// Function to print the Principal Diagonal
+void printPrincipalDiagonal(int mat[][MAX], int n)
+{
+    cout << "Principal Diagonal: ";
+ 
+    for (int i = 0; i < n; i++) {
+        // Printing principal diagonal
+        cout << mat[i][i] << ", ";
+    }
+    cout << endl;
+}
+//Formula The row-column condition is row = numberOfRows - column -1.
+void printSecondaryDiagonal(int mat[][MAX], int n)
+{
+    cout << "Secondary Diagonal: ";
+    int k = n - 1;
+    for (int i = 0; i < n; i++) {
+        // Printing secondary diagonal
+        cout << mat[i][k--] << ", "; //the k-- is equal to n - i - 1 from the formula with each I iteration the k-- is done this ensure the diagonal is printed from top right corner to inwards
+    }
+    cout << endl;
+}
+
+// Driver code
+int main()
+{
+	int n = 4;
+	int a[][MAX] = { { 1, 2, 3, 4 },
+					{ 5, 6, 7, 8 },
+					{ 1, 2, 3, 4 },
+					{ 5, 6, 7, 8 } };
+
+	printPrincipalDiagonal(a, n);
+	printSecondaryDiagonal(a, n);
+	return 0;
+}
+
+
+
 
 //transpose of a matrix ...vonvert columns to rows and rows t columns 
 in this we notice that [0,0] index is swapped with [0,0]
@@ -118,7 +232,7 @@ in this we notice that [0,0] index is swapped with [0,0]
       }
 //array extra class 
 //2 pointer approch questions 
-Question imput array has apositive and negative numbers the output should be negative numbers of left side and positive on right side 
+Question input array has apositive and negative numbers the output should be negative numbers of left side and positive on right side 
 //move all the negative numbers to the left side of the array 
 Approch - 
 1.sorting 
@@ -147,7 +261,7 @@ int main() {
     
     for(int index = 0;index<7;index++)
     {
-        cout<<arr[index]<<endl;
+        cout<<arr[index]<<endl; //print output
     }
      
 }
@@ -155,7 +269,7 @@ int main() {
 75. Sort Colors
 // easiest solution just sort this thing lol
 /// brute force solution 
-
+//the below solution has the time complexity of O(n) so even though its broot force its pretty good 
 class Solution {
     public:
         void sortColors(vector<int>& nums) { // this good solution
@@ -187,7 +301,7 @@ class Solution {
         }
     };
     
-/// @brief /////////////
+/// @brief ///////////// bubble sort best case TC is O(n) ans worst case is O(n2)
 class Solution {   // this solution is actually bubble sort which is why i dont understand how the damn thing works lol
     public:
         void sortColors(vector<int>& nums) {
@@ -215,7 +329,7 @@ https://leetcode.com/problems/rotate-array/
 done using swapping 
 
 *****************When ever in a question they talk about rotating value or rotation ...then the % method is the most probable solution for this 
-FORMULA INDEX + k %  n;  
+FORMULA INDEX + k %  n;  (index is the current iteration, K is the number of steps that its being shifted and n is the size)
 
 ///The below is my horrible solution and does not pass all the test cases 
 class Solution {
@@ -257,10 +371,10 @@ class Solution {
                 for(int index = 0; index<n; index++)
                     {
                         int newindex = (index + k) % n; // this is the important formula for rotating INDEX + k %  n
-                        ans[newindex] = nums[index];
+                        ans[newindex] = nums[index]; //keep the new arrangement in the new ans array 
                     }
         
-                nums = ans;
+                nums = ans; //copy temp to the original vector
                 
             }
         };
@@ -287,7 +401,7 @@ class Solution {
     };
 
 //another way to solve this is using the arithmatic progression sum formula  O()
-class Solution {
+class Solution { //ignore this solution
     public:
         int missingNumber(vector<int>& nums) {
             int sum = 0;
@@ -338,7 +452,7 @@ https://leetcode.com/problems/row-with-maximum-ones/description/
 //the blow is not the best most optimized solution but it works lol
 class Solution {
     public:
-        vector<int> rowAndMaximumOnes(vector<vector<int>>& mat) {
+        vector<int> rowAndMaximumOnes(vector<vector<int>>& mat) { //2d vector declaration
             int n = mat.size();
             int onecount = INT_MIN;
             int rownum = 0;
