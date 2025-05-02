@@ -855,8 +855,167 @@ void waveprint(vector<vector<int>>v)
             }
         }
 }
+************** in a 2d vector v[0].size() = number or columns while v.size() = rows******************
+//Spiral print of a matrix (2d array)/////////
 
-//Spiral print of a matrix /////////NOT DONE YET
+123   ->spiral print of this will be 123698745
+456  
+789
+
+//printing order 
+1.Starting row ++
+2.Ending column --
+3.Ending row --
+4.Starting col ++
+//Corners will be repeated and need to be handeled 
+
+class Solution {
+    public:
+        vector<int> spiralOrder(vector<vector<int>>& matrix) {
+            int m = matrix.size(); //row
+            int n = matrix[0].size(); //col
+            int total = m*n;
+            vector<int> ans;
+    
+            int startingrow = 0;
+            int endingcol = n-1;//n is col so ending col n-1
+            int endingrow = m-1;//m is row so ending row is m-1
+            int startingcol = 0;
+    
+            int count = 0; //to keep track of how many have been printed 
+            while(count < total)
+                {
+                    //print starting row :)
+                    for(int i=startingcol;i<=endingcol && count < total;i++)  //added to prevent printing if total elemnts already printed 
+                        {
+                            ans.push_back(matrix[startingrow][i]);
+                            count++;
+                            
+                        }
+                        startingrow++; //these are added to prevent duplicates taht wouold be printed at the corner of the matrix
+                     //print ending col
+                    for(int i=startingrow;i<=endingrow && count < total;i++)
+                        {
+                            ans.push_back(matrix[i][endingcol]);
+                            count++;
+                        }
+                        endingcol--;
+                     //print ending row
+                    for(int i=endingcol;i>=startingcol && count < total;i--)
+                        {
+                            ans.push_back(matrix[endingrow][i]);
+                            count++;
+                        }
+                        endingrow--;
+                     //print strating col
+                    for(int i=endingrow;i>=startingrow && count < total;i--)
+                        {
+                            ans.push_back(matrix[i][startingcol]);
+                            count++;
+                        }
+                        startingcol++;
+                }
+    
+            return ans;
+        }
+    };
+
+////////Factorial of a large number 
+
+//The problem with a normal factorial is that depending on the input number the out put may be very large ....and cannot be stored in a int variable since its of 4 byted 
+
+///doing another smaller question to understand the above question 
+https://www.geeksforgeeks.org/problems/add-two-numbers-represented-by-two-arrays2408/0
+Add two numbers represented by two arrays
+class Solution {
+    public:
+      string calc_Sum(vector<int>& arr1, vector<int>& arr2) {
+          // Complete the function
+          string ans;
+          int carry = 0;
+          int i = arr1.size()-1;
+          int j = arr2.size()-1;
+          
+          while(i>=0&&j>=0)
+              {
+                  int x = arr1[i] + arr2[j] + carry;
+                  int digit = x%10;
+                  ans.push_back(digit + '0'); //digit added at end so need to reverse
+                  carry = x/10;
+                  i--,j--;    
+                  
+              }
+          while(i>=0) //handle case where arr1 is larger than arr2
+              {   
+                  
+                  int x = arr1[i] + 0 + carry;
+                  int digit = x%10;
+                  ans.push_back(digit + '0');
+                  carry = x/10;
+                  i--;
+              }
+              
+          while(j>=0) //handle case where arr2 is larger then arr1
+              {
+                  int x = 0 + arr2[j] + carry;
+                  int digit = x%10;
+                  ans.push_back(digit + '0');
+                  carry = x/10;
+                  j--;
+              }
+          if(carry)
+              {
+                  ans.push_back(carry+'0');
+              }
+  
+          
+          while(ans[ans.size()-1] == 0)
+              {
+                  ans.pop_back();
+              }
+          
+          reverse(ans.begin(),ans.end());
+          return ans;
+      }
+  };
+
+  //now back to the main question Large factorial https://www.geeksforgeeks.org/problems/factorials-of-large-numbers2508/1
+  
+// User function template for C++
+
+class Solution {
+    public:
+      vector<int> factorial(int n) {
+          // code here
+          vector<int>ans;
+          ans.push_back(1);
+          int carry = 0;
+          
+          for(int i = 2;i<=n;i++)
+              {
+                  for(int j = 0;j<ans.size();j++)
+                      {
+                          int x = ans[j]*i+carry;
+                          ans[j]=x%10;
+                          carry =x/10;
+                      }
+                  while(carry) 
+                  {
+                      ans.push_back(carry%10);
+                      carry/=10;
+                  }
+                  carry = 0;
+                  
+                  
+              }
+              reverse(ans.begin(),ans.end());
+              //cout<<ans<<endl;
+              return ans;
+          
+      }
+  };
+
+
 
 //Remove duplicates from sorted array 
 26. Remove Duplicates from Sorted Array
@@ -879,3 +1038,5 @@ class Solution {
             return j + 1;  // becasue i have to return number of elements in final array 
         }
     };
+
+///////Maximum acerage subarray 
