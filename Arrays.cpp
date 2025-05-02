@@ -557,6 +557,30 @@ class Solution {
 
 ///////724. Find Pivot Index
 
+class Solution {
+    public:
+        int pivotIndex(vector<int>& nums) {
+            vector<int> lsum(nums.size(), 0);
+            vector<int> rsum(nums.size(), 0);
+    
+            // lsum value
+            for (int i = 1; i < nums.size(); i++) {
+                lsum[i] = lsum[i - 1] + nums[i - 1];
+            }
+            // rsum value
+            for (int i = nums.size()-2; i >= 0; i--) {
+                rsum[i] = rsum[i + 1] + nums[i + 1];
+            }
+            //output
+            for (int i = 0; i < nums.size(); i++) {
+                if(lsum[i] == rsum[i]){
+                    return i;
+                }
+            }
+            return -1;
+        }
+        };
+
 
 /////75. Sort Colors
 for(int i = 0; i<n-1;i++ )
@@ -1040,3 +1064,34 @@ class Solution {
     };
 
 ///////Maximum acerage subarray 
+//BRUTE FORCE APPROCH 
+
+SET I = FIRST index and j = first index + k(this is the length of average sub array)
+then we can run a look that adds everything between i and j then store the max result 
+go through i and j till j reaches the end of the loop 
+//time complexity of this solution is not good n square is the time complexity which is not great
+
+Better solution - sliding window method 
+logic ...when we iterate throught the array ...each time i is incremented and j is increment meaning a i value is removed and a new j value is adde this means i dont have to add everything up again
+
+class Solution {
+    public:
+        double findMaxAverage(vector<int>& nums, int k) {
+            int i = 0;
+            int j = k-1;
+            int sum = 0;
+    
+            for(int y=i;y<=j;y++)
+                sum+=nums[y];
+            int maxsum = sum;
+            j++;
+            while(j<nums.size()){
+                sum -= nums[i++];
+                sum += nums[j++];
+                maxsum = max(maxsum, sum);
+            }
+        double maxavg = maxsum/(double)k;
+        return maxavg;
+        
+        }
+    };
