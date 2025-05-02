@@ -611,3 +611,271 @@ class Solution {
          return nums[0];
         }
     }
+
+/////missing elements from an array with duplicates 
+//not fully clear yet ......
+Method 1 - visited ...visit all the indexes and mark them as negative then
+Method 2 - Sorting + swapping 
+
+2- 
+int i = 0;
+while(i<n){
+    int index = a[i] -1;
+    if(a[i] != a[index])
+        {
+            swap(a[i],a[index])
+        }
+    else{
+        i++
+    }
+    for(int i=0;i<n;i++)
+        {
+            if(a[i] != i+1)
+                {
+                    cout<<i+1<<""
+                }
+        }
+}
+
+
+/////First Repeating Element
+//https://www.geeksforgeeks.org/problems/first-repeating-element4018/1
+//the blow solution is simple but the time complexity is horrible which is why this wont submit 
+TC-O(n2)
+sc-O(1)
+
+class Solution { 
+    public:
+      int firstRepeated(vector<int> &a) {
+          // code here
+          for(int i = 0;i<a.size();i++)
+              {
+                  bool isrepeated = false;
+                  
+                  for(int j = i+1;i<a.size();i++)
+                      {
+                          if(a[i] == a[j])
+                              {
+                                  isrepeated = true;
+                                  return i+1;
+                              }
+                      }
+              }
+              
+      }
+  };
+
+///////////////////Better solution
+//We will use hashing //unordered map 
+class Solution {
+    public:
+      int firstRepeated(vector<int> &a) {
+          // code here
+          unordered_map<int, int>hash;
+          for(int i = 0;i<a.size();i++)
+              {
+                  hash[a[i]]++;
+              }
+          
+          for(int i = 0;i<a.size();i++)
+              {
+                  if(hash[a[i]] >1)
+                      {
+                          return i+1;
+                      }
+              }
+          return -1;
+      }
+  };
+
+  ////////////////////////Common elements in 3 sorted arrays 
+//My solution this thing sadly has issues and is not fully woking
+  class Solution {
+    public:
+      // Function to find common elements in three arrays.
+      vector<int> commonElements(vector<int> &arr1, vector<int> &arr2,
+                                 vector<int> &arr3) {
+          // Code Here
+          
+          vector<int>ans;
+          set<int>st;
+          int i,j,k;
+          i=j=k=0;
+          while(i<arr1.size()&&j<arr2.size()&&k<arr3.size())
+          {
+              if(arr1[i] == arr2[i] && arr2[i] == arr3[i])
+                  {   
+                      ans.push_back(arr1[i]);
+                      //st.insert(arr1[i]);
+                      cout<<arr1[i];
+                      i++,j++,k++;
+                      
+                  }
+              else if(arr1[i] <arr2[j])
+                  {
+                      i++;
+                  }
+              else if(arr2[j]<arr3[k])
+                  {
+                      j++;
+                  }
+              else{
+                  k++;
+              }
+              
+          }
+          
+          for(auto i:st)
+              {   
+                 // cout<<st[i];
+              }
+          
+              return ans;  
+          }
+  };
+
+  ///////////Solution from GFG
+  //Back-end complete function template in C++
+
+class Solution {
+    public:
+      // Function to find common elements in three arrays.
+      vector<int> commonElements(vector<int> &arr1, vector<int> &arr2,
+                                 vector<int> &arr3) {
+          int n1 = arr1.size();
+          int n2 = arr2.size();
+          int n3 = arr3.size();
+          // Initializing variables i, j, k to track array indices.
+          int i = 0, j = 0, k = 0;
+  
+          // Initializing vector to store common elements.
+          vector<int> res;
+  
+          // Initializing variable last to track previous common element.
+          int last = INT_MIN;
+  
+          // Loop until reach the end of any array.
+          while (i < n1 and j < n2 and k < n3) {
+              // If current elements in all arrays are equal and not the same as the
+              // previous common element.
+              if (arr1[i] == arr2[j] and arr1[i] == arr3[k] and arr1[i] != last) {
+                  // Add common element to the result vector.
+                  res.push_back(arr1[i]);
+  
+                  // Update last variable to current common element.
+                  last = arr1[i];
+  
+                  // Move to next elements in all arrays.
+                  i++;
+                  j++;
+                  k++;
+              }
+              // Move to the next smallest element among the three arrays.
+              else if (min({arr1[i], arr2[j], arr3[k]}) == arr1[i])
+                  i++;
+              else if (min({arr1[i], arr2[j], arr3[k]}) == arr2[j])
+                  j++;
+              else
+                  k++;
+          }
+  
+          // Return the result vector with common elements.
+          return res;
+      }
+  };
+
+
+  /////////////Wave print a matrix//////////////column wise 
+  ///can i also do a row wise ?
+  #include<iostream>
+using namespace std;
+
+void waveprint(vector<vector<int>>v)
+{
+        int m = v.size();
+        int n = v[0].size();
+        
+        for(int startcol =0; startcol<n;startcol++)
+        {
+            //even no of col -> top to bottom 
+            if((startcol&1) == 0){
+                for(int i = 0;i<m;i++)
+                {
+                    cout<<v[i][startcol]<<" ";
+                }
+            }
+            else{
+                //if odd number then bottom to top
+                for(int i = m-1;i>=0;i--)
+                    {
+                    cout<<v[i][startcol]<<" ";
+                }
+            }
+        }
+}
+
+int main() {
+   vector<vector<int>>v{
+       {1,2,3,4},
+       {5,6,7,8},
+       {9,10,11,12},
+       {13,14,15,16},
+       {17,18,19,20}
+   };
+   waveprint(v);
+   return 0;
+     
+}
+
+
+/////same code as above but now running column wise 
+#include<iostream>
+using namespace std;
+
+void waveprint(vector<vector<int>>v)
+{
+        int m = v.size();
+        int n = v[0].size();
+        
+        for(int startcol =0; startcol<n;startcol++)
+        {
+            //even no of col -> top to bottom 
+            if((startcol&1) == 0){
+                for(int i = 0;i<n;i++)
+                {
+                    cout<<v[startcol][i]<<" ";
+                }
+            }
+            else{
+                //if odd number then bottom to top
+                for(int i = n-1;i>=0;i--)
+                    {
+                    cout<<v[startcol][i]<<" ";
+                }
+            }
+        }
+}
+
+//Spiral print of a matrix /////////NOT DONE YET
+
+//Remove duplicates from sorted array 
+26. Remove Duplicates from Sorted Array
+
+class Solution {  
+    public:
+        int removeDuplicates(vector<int>& nums) {
+            int i = 1,j=0; //j point to first and i to second ...j will hold all the arranged 
+                                   
+            while(i<nums.size()){
+    
+                if(nums[i] == nums[j]) i++;  //if both the elements are the same then we do i ++ 
+    
+                else{
+                    j++;
+                    nums[j] = nums[i]; //if not the same then we increment j...and set the new element to the new j location 
+                    i++;  //i++ check the next element 
+                }
+            }
+            return j + 1;  // becasue i have to return number of elements in final array 
+        }
+    };
