@@ -96,7 +96,7 @@ int main() {
     }   
 }
 
-//Hollow pyramid ///not sure how this fully works need fix
+//Hollow pyramid 
 
 #include<iostream>
 using namespace std;
@@ -160,7 +160,7 @@ int main() {
     {    
         for(int j = 0; j<= 2*n-1; j++) //2n-1 is the formula to find the number of columns since only row is given 
         {
-            if(j >= n - i && j <= n + i) //   For row i, you want to print * from: j = n - i to j = n + i
+            if(j >= n - i && j <= n + i) //   For row i, you want to print * from: j = n - i to j = n + i //if this if statement is removed i can just print a rectangle 
             {
                 cout<<"*";
             }
