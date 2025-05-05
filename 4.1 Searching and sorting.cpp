@@ -8,7 +8,7 @@ This algo checks each item one by one till the required item is found
 Binary Search 
 1. You can only do binary search on a sorted array (monotonic function) - which means either increasing or decreasing.
 2. binary search requires the starting index ..ending index and the middle index of the.
-3. MID = (start + end)/2;
+3. MID = (start + end)/2; //or better method is to use int mid = start/2 + e/2;
 4. With this the array gets devided into 3 parts left, mid and right.
 5.Binary search first checks the middle index and if the number does not match target then it can choose to look at left part or
 right part.
@@ -17,7 +17,7 @@ right part.
 ***binary search advanced questions are mostly based on the understanding of saving the answer and going left and right based on it**
 
 //Time complexity - With every iteration the array size becomes half 
-O(Log base 2)
+O(Log base n) where n is the size of array
 
 
 704. Binary Search (basic imlementation of binary search)
@@ -166,7 +166,7 @@ while(start<=end)
             }
         else {
             ans = mid;
-            e = mid-1;
+            end = mid-1;
         }
         mid = (start+end)/2;
     }
@@ -208,3 +208,196 @@ class Solution {
             
         }
     };
+
+
+////5/5/2025 :)
+VVVV imp question - 
+
+Q- Find pivot element 
+
+Pivot means - What ever is the maximum number in the rotated and storted array is the Pivot element
+
+what a rotated and sorted array looks like - 12,14,16,2,4,6,8,10
+Here the Pivot would be 16 
+This array can be handles using binary search we can handle 12,14,16 as A then 2,4,6,8,10 as B then handle 16 and 2 seperately 
+
+How to handle the pivot elements - 
+When MID is at 2 then we can use the condition arr[mid] < arr[mid-1] since this condition will actually only be true for 2 and no other number in the array 
+When MId is at 16 then we can use the condition arr[mid] >arr[mid+1] since this condition will only be true for 16 and no other number 
+How to know if your on line A or B ? arr[start] > arr[mid] -> line b and if i am on line b the the answer exists on the left else case go right 
+
+//this code will break in 1 case ....This code needs to handle the single element case  ...we can add if start == end return start  
+
+//The below pivot element program is important becasue once we have the pivot element then we can apply binary search based on it
+//Since binary search cannot be applied on pivot elements ...like 16 and 2 .....if we know the pivot we can apply binary search to A part and B
+int find pivotindex(arr[], n)
+    {
+        int start = 0;
+        int end = 0;
+        int mid = (start+end)/2
+        
+        while(start<=end)
+            {   
+                if(arr[mid] < mid-1)
+                    {
+                        return mid-1;
+                    }
+                else if(arr[mid] > arr[mid+1]) //this code will break for cases with 2 indexes like [1,3] here this code tries to access a negative index
+                    {                           //in the below code mid+1 < n was added to prevent this  
+                        return mid+1;           //importnt these conditions are needed 
+                    }
+                else if(arr[start] > arr[mid]) //We compare with the first element to check out position //if this true then we on line B and we go left for pivot
+                    {
+                        end = mid-1; //left jao
+                    }
+                else{
+                    start = mid+1; //right jao
+                }
+            }
+        return -1
+    }
+
+33. Search in Rotated Sorted Array
+https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/1274961069/
+
+class Solution {
+    public:
+    
+       int findPivotIndex(vector<int>& arr) {
+            int n = arr.size();
+            int s = 0;
+            int e = n-1;
+            int mid = s + (e-s)/2;
+    
+            while(s <= e) {
+                //corner case
+                if(s == e) {
+                    //single element
+                    return s;
+                }
+    
+                if(mid+1 < n && arr[mid] > arr[mid+1])
+                    return mid;
+                else if(mid-1 >=0 && arr[mid] < arr[mid-1])
+                    return mid-1;
+                else if(arr[s] > arr[mid] )  ///need to look into what happens if the past else if and else are exchanged we need = ?
+                    e = mid - 1;
+                else 
+                    s = mid + 1;
+                
+                mid = s + (e-s)/2;
+            }
+            return -1;
+    
+        }
+    
+        int binarySearch(vector<int>& arr, int s, int e, int target) {
+            int mid = s + (e-s)/2;
+            while(s<=e) {
+                if(arr[mid] == target) {
+                    return mid;
+                }
+                if(target > arr[mid]) {
+                    s = mid + 1;
+                }
+                else {
+                    e = mid - 1;
+                }
+                mid = s + (e-s)/2;
+            }
+            return -1;
+        }
+    
+        int search(vector<int>& nums, int target) {
+            int pivotIndex = findPivotIndex(nums);
+            cout << "Pivot Index us: " << pivotIndex << endl;
+            int n = nums.size();
+            int ans = -1;
+    
+            //search in A
+            if(target >= nums[0] && target <= nums[pivotIndex]) {  //these if statements help decide which part A or B of the array should be searched 
+                ans = binarySearch(nums, 0, pivotIndex, target);   //if target more than start and target less than pivot then we search from start to pivot
+            }
+            else {
+                ans = binarySearch(nums, pivotIndex+1, n-1, target); //else we search from pivot +1 to the end 
+            }
+            return ans;
+        }
+    
+    };
+
+////////////////////69. Sqrt(x)
+//Given a non-negative integer x, return the square root of x rounded down to the nearest integer. 
+//The returned integer should be non-negative as well.
+// do the below question but upto 3 deciaml places 
+class Solution {
+    public:
+        int mySqrt(int x) {
+            int start = 0;
+            int end = x;
+            long long int mid = start+(end-start)/2; //need to use this formula here because of the larger number after multiplication //long long used to hold the large number 
+            int ans = -1;                             //initially i used the start/2 +end /2 formula this caused the progrm to exceed time 
+    
+            while(start<=end)
+                {
+                    //if mid is the answer
+                    if(mid*mid == x)
+                        {
+                            return mid;
+                        }
+                    else if(mid*mid < x)
+                        {   
+                            ans = mid; //store the answer 
+                            start = mid+1; //right jao
+                        }
+                    else{
+                        end = mid-1; //left jao
+                    }
+                    mid = start+(end-start)/2;;
+                }
+            return ans;
+    
+        }
+    };
+    
+//Binary search in a 2D array /////////////////////////////////////////
+74. Search a 2D Matrix // https://leetcode.com/problems/search-a-2d-matrix/description/
+//We just need to use the formula to convert 2d array to 1d array 
+TC- log m*n
+2d -> 1d c*i+j;
+
+1d->2d i = mid/c
+       j = mid%c
+
+//code
+       class Solution {
+        public:
+            bool searchMatrix(vector<vector<int>>& matrix, int target) {
+                int row = matrix.size();
+                int col = matrix[0].size();
+                int n = row*col;
+        
+                int s = 0;
+                int e = n-1;
+                int mid = s + (e-s)/2;
+        
+                while(s <= e) {
+                    int rowIndex = mid/col;
+                    int colIndex = mid % col;
+                    int currNumber = matrix[rowIndex][colIndex];
+        
+                    if(currNumber == target)
+                        return true;
+                    else if(target > currNumber ) {
+                        //right;
+                        s = mid + 1;
+                    } 
+                    else {
+                        //left;
+                        e = mid-1;
+                    }
+                    mid = s + (e-s)/2;
+                }
+                return false;
+            }
+        };
