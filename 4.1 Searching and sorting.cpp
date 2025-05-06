@@ -210,7 +210,7 @@ class Solution {
     };
 
 
-////5/5/2025 :)
+////5/5/2025 :)//////////////////
 VVVV imp question - 
 
 Q- Find pivot element 
@@ -276,7 +276,7 @@ class Solution {
                     return s;
                 }
     
-                if(mid+1 < n && arr[mid] > arr[mid+1])
+                if(mid+1 < n && arr[mid] > arr[mid+1]) //mid+1 < n added to prevent out of bounds access 
                     return mid;
                 else if(mid-1 >=0 && arr[mid] < arr[mid-1])
                     return mid-1;
@@ -401,3 +401,195 @@ TC- log m*n
                 return false;
             }
         };
+
+        
+///6/5/2025/////Searching and sorting level 3 
+
+//Question 
+in input we are given 2 numbers we need to devide these 2 numbers and give the output answer. We have to do this using binary search
+
+I/p = 29/7  answer should be 4  <- is the quotient 
+
+Quotient X divisor = divident ....Here we use Quotent as out search space and the divisor will be given ....when we can check it against the divident 
+
+quotient X divisor == divident --final answer 
+quotient X divisor < divident ...Then we need to store the answer and move to the right 
+quotient X divisor > divident ...Then we go left.
+
+//The blow code also needs to handle negative numbers being divided
+//TC is logn ...where n is the search space divident 
+#include<iostream>
+using namespace std;
+
+int getquotient(int divisor, int divident){
+    int start = 0;
+    int end = divident;
+    int mid = start+(end-start)/2;
+    int ans = -1;
+    while(start<=end)
+        {
+                if(mid*divisor == divident)
+                    {
+                        return mid;
+                    }
+                if(mid*divisor<divident)
+                    {   
+                        ans = mid;
+                        start = mid+1;
+                    }
+                else{
+                    end = mid-1;
+                }
+            mid = start+(end-start)/2;
+        }
+    return ans;
+}
+
+int main(){
+    int divisor  =1;
+    int divident = 35;
+    // to handle negative inputs we use ABS to always sent positive and then later we can handle the negative 
+    
+    int ans = getquotient(abs(divisor),abs(divident));
+    
+    // now need to decide what sign should the final answer have- 
+
+    if(divisor>0&&divident<0 || divisor<0&&divident>0)
+    {   ans = 0-ans;
+       
+    }
+    
+    cout<<"final ans"<<ans;
+}
+
+//Binary search on a nearly sorted array 
+
+Nearly sorted array -> 20,10,30,50,40,70,60
+//if in a sorted array a number is at I index then in nearly sorted array the I th element can be on i-1 or i or i+1;
+
+//if(arr[mid] == target) then we return mid in a normally sorted array 
+but in a nearly storted array we will have 3 cases for this since i can be at i-1 or i+1 or at i 
+1.if(arr[mid] == target)
+return mid
+2.if(arr[mid-1] == target)
+return mid-1
+3.if(arr[mid+1] == target)
+return mid+1;     
+
+//if(target>arr[mid])...we go right in a normal binary search 
+same applies to a nearly sorted array the go right condition does have a catch though *****
+The else case also has a catch that needs to be handles 
+//The catch is that Usually when we set start or end we do a +1 or -1 but here since the target can be at 3 different indexes ...and we dont want to check 
+//the same index again we would do end = mid-2 and start = mid +2 when we want to go right or left 
+
+TC ..same as well BS ...O(logn)
+int searchnearlysorted(int arr, int n, int target){
+    int start = 0;
+    int end = n-1;
+    int mid = s+(e-s)/2;
+
+
+    while(s<=e)
+        {
+            if(mid-1>=0 && arr[mid-1] == target) //mid-1>=0 has been added to make sure we dont start checking a negative index 
+            {
+                return mid-1
+            }
+            if(arr[mid] == target)
+            {
+                return mid;
+            }
+
+            if(mid+1<n && arr[mid+1] == target) 
+                {
+                    return mid+1;
+                }
+            
+            if(target >arr[mid])
+                {
+                    s= mid +2 //the same index again we would do end = mid-2 and start = mid +2 when we want to go right or left
+                }
+            else{
+                e = mid-2;  //this code would still work if i had +1 or -1 ...its just doing extra comparisons which aint good sooo we do +2-2
+            }
+            mid = s+(e-s)/2;
+        }
+    return -1;
+}
+
+int main()
+{
+    int arr = {20,10,30,50,40,70,60};
+    int n = 7;
+    int target = 60;
+
+    int found = searchnearlysorted(arr,n,target);
+
+    if(found == true)
+        {
+            count<<"true"
+        }
+    else{
+        cout<<"false";
+    }
+}
+
+
+/////////Find the odd occuring element //////////This question is nuts :(
+All elements occur even number of times in the array except 1
+//repeating numbers are in pairs 
+//all elements will occur only twice and only 1 element less than twice 
+//the array is not sorted
+//We have solved this previously using XOR ...but that has time complexity of O(n) ...what if we want lower time complexity ?
+//Arr ->1,1,5,5,2,2,3,3,2,4,4 
+//idex and logic concepts
+
+//In the above array with pairs we notice that with each pair the first element is at an even index while the second element is at an odd index 
+//But after we encounter a single element this pattern get broken and the first element will be on an odd index.
+//Based on the above 2 observations we can understand what part of the array we are at and where we need to move to get the answer 
+//THe answer will always be at an even index
+//If no pair existins then thats a single element case ....return the single element 
+
+
+int findOddOccuringElement(int arr[], int n) {
+    int s = 0;
+    int e = n-1;
+    int mid = s + (e-s)/2;
+  
+    while(s <= e) {
+  
+      //single element
+      if(s == e) {
+        return s;
+      }
+  
+      //mid check -> even or odd
+      if(mid & 1) { //mid&1 -> true -> odd number
+        if(mid-1 >=0 && arr[mid-1] == arr[mid]) {
+          //right me jao
+          s = mid + 1;
+        }
+        else {
+          //left me jao
+          e = mid - 1;
+        }
+      }
+      else {
+        //even
+        if(mid+1 < n && arr[mid] == arr[mid+1]){
+          //right me jao
+          s = mid + 2;
+        }
+        else {
+          //ya toh main right part pr khada hu
+          //ya toh main answer k upar khada hu
+          //that's why e = mid krra hu
+          // kyoki e = mid - 1; se ans lost ho skta h 
+          e = mid;    
+        }
+      }
+      mid = s + (e-s)/2;
+    }
+    return -1;
+  }
+  
