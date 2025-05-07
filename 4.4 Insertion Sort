@@ -1,0 +1,19 @@
+In this we look at a number then we look at all the numbers before and check if the ith element is smaller 
+If it is smaller then move all the previous elemets ahead and then put the ith index at start 
+
+void insertionSort(vector<int> &v) {
+  int n = v.size();
+  // i = 0, chhod deta hu
+  for (int i = 1; i < n; ++i) {
+    int key = v[i];
+    int j = i - 1;
+
+    // Move elements of arr[0..i-1] that are greater than
+    // key to one position ahead of theri current position
+    while (j >= 0 && v[j] > key) {
+      v[j + 1] = v[j];
+      j--;
+    }
+    v[j + 1] = key; // insertion
+  }
+}
