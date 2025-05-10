@@ -6,8 +6,8 @@
  i == 0 j == 1 if diff == k then i++ and j++ else if(diff >k) ..i++ elseif(diff<k)..j++ if i ==k the j ++//they are at same index dont find diff
  The above code wont give distinct solution ...so we need to use a pair data structure to fix that 
 
- //2 pointer approch
-    /*int findPairs(vector<int>& nums, int k) {
+ 2 pointer approch
+    int findPairs(vector<int>& nums, int k) {
         sort(nums.begin(), nums.end());
         int diff = 0;
         int i = 0;
@@ -45,7 +45,7 @@
         return ans.size();
     }
 
-//Binary search Solution which has the best time complexity 
+Binary search Solution which has the best time complexity 
 O n*logn time complexity 
     int bs(vector<int>& nums,int start, int x) {
         int end = nums.size()-1;
@@ -81,5 +81,115 @@ O n*logn time complexity
 
             }
         return ans.size();
+    }
+};
+
+//658. Find K Closest Elements https://leetcode.com/problems/find-k-closest-elements/description/
+
+//Sort with respect to difference  ....brute force solution
+
+//2 pointer approch 
+In this we place pointers low and high at each end of the array then we move them forward based on if Low or High pointer has a 
+Bigger value then we move it forward
+This works because if we move forward from first index the difference decreases and if we move back from highest position same thing the Diff decreases 
+while(high-low>=k)
+if(x-a[l]>a[h]-x) //X is the number givven based on which we are findinf the diff 
+    {
+        Low++
+    }
+else{
+    high--;
+}
+
+///2 pointer solution 
+//TC - O(N-K) //Since we trverse the whole array till the k elements 
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+    
+        int low = 0;
+        int high = arr.size()-1;
+
+        while(high-low>=k)
+            {
+                if(x-arr[low]>arr[high]-x)
+                    {
+                        low++;
+                    }
+                else{
+                    high--;
+                }
+
+            } 
+        vector<int> ans;
+
+        for(int i = low;i<=high;i++)
+            {
+                ans.push_back(arr[i]);
+            }   
+        return ans;
+    }
+};
+//Binary search with 2 pointer 
+In this method we take 2 pointers low and high.
+High will point to the Lowest difference index = 0 
+Low will point to the index next to high so high -1
+We will move the pointers based on conditions to the K specified size to get the final answer
+
+class Solution {
+public:
+
+    int lowerbound(vector<int>& arr, int x)
+        {
+            int start = 0;
+            int end = arr.size()-1;
+            int ans = end;
+
+
+            while(start<=end){
+                int mid = (start+end)/2; //check
+                
+                if(arr[mid]>=x)
+                    {
+                        ans = mid;
+                        end = mid-1;
+                    }
+                else if(x>arr[mid])
+                    {   
+
+                        start = mid+1;
+                    }
+                else{
+                    end = mid-1;
+                }
+            }
+            return ans;
+        }
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+    
+        
+        int high = lowerbound(arr, x);
+        int low = high-1;
+
+        while(k--)
+            {   
+                if(low<0)
+                    {
+                        high++;
+                    }
+                else if(high>=arr.size()){
+                    low--;
+                }
+                else if(x-arr[low]>arr[high]-x)
+                    {
+                        high++;
+                    }
+                else{
+                    low--;
+                }
+
+            } 
+         
+        return vector<int>(arr.begin()+low+1,arr.begin()+high);
     }
 };
