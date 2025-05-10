@@ -56,3 +56,60 @@ Question - Check palendrome
 
 Strings - 
 A string data type that holds char ....its size can be change dynamically during run time like an array 
+
+//array and string class 2 
+//1047. Remove All Adjacent Duplicates In String
+//////////////////https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+
+//approach new string where we build the answer 
+//this can also be done using stack ...which is actually the better way  
+//need to adabt this solution to use stack 
+
+class Solution {
+    public:
+        string removeDuplicates(string s) {
+            string ans = "";
+            int index = 0;
+    
+            while(index<s.length())
+                {
+                    if(ans.length() >0 && ans[ans.length()-1] == s[index])
+                    {
+                        ans.pop_back();
+                    }
+                    else{
+                        ans.push_back(s[index]);
+                    }
+                    index++;
+                }
+            return ans;
+        }
+    };
+
+//Hardr question based on the above question - https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/description/
+//1209. Remove All Adjacent Duplicates in String II
+
+
+
+//1910. Remove All Occurrences of a Substring
+https://leetcode.com/problems/remove-all-occurrences-of-a-substring/description/
+//the below code is not the best 
+
+class Solution {
+    public:
+        string removeOccurrences(string s, string part) {
+            
+            while(s.find(part) != string::npos)  //npos is no poistion found //its value is ?
+                {
+                    //if inside loop that means the sub string does exist 
+                    s.erase(s.find(part),part.length());
+                }
+            return s;
+        }
+    };
+
+  Home work  ///what what named algos do we have in to find patterns in a string ?
+            //time complexity and implemntation of the erase function and its time complexity 
+            //find funtion time complexity 
+
+            
