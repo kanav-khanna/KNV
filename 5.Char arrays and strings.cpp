@@ -112,4 +112,88 @@ class Solution {
             //time complexity and implemntation of the erase function and its time complexity 
             //find funtion time complexity 
 
-            
+//680. Valid Palindrome II
+https://leetcode.com/problems/valid-palindrome-ii/description/
+//O(n) Time complexity for worst case 
+ class Solution {
+public:
+    bool checkPalindrome(string s, int i, int j) {
+        while( i<= j) {
+            if(s[i] != s[j] ) {
+                return false;
+            }
+            else {
+                i++;
+                j--;
+            }
+        }
+        return true;
+    }
+
+    bool validPalindrome(string s) {
+        int i = 0;
+        int j = s.length()- 1;
+
+        while( i <= j) {
+            if(s[i] == s[j]) {
+                i++;
+                j--;
+            }
+            else{
+                //s[i]!=s[j]
+                //1 removal allowed
+                //check plaindrome for remaining string after removal
+
+                //ith character -> remove
+                bool ans1 = checkPalindrome(s, i+1, j); //to remove i charecter so we user i+1
+                //jth character -> remove
+                bool ans2 = checkPalindrome(s, i, j-1); //we want to remove j and then check if palindrome 
+
+                return ans1 || ans2; //depending on which bool is true then we return the ans
+            }
+        }
+        //agar yha tk pohoche ho
+        //iska matlab valid palindrome hai
+        //iska matlab -> 0 removal
+        return true;
+    }
+};
+
+
+//Homework - 539. Minimum Time Difference
+//https://leetcode.com/problems/minimum-time-difference/description/
+//Hint convert all time to minutes then compare 
+//get the hours and minutes seperately with sub str then stoi funtion need to convert string to integer 
+//then get total minutes then sort the array 
+//edge case ?
+
+
+//647. Palindromic Substrings
+//https://leetcode.com/problems/palindromic-substrings/description/
+//VV IMP
+class Solution {
+public:
+    int expand(string s,int i, int j) {
+        int count = 0;
+
+        while(i >= 0 && j < s.length() && s[i] == s[j] ) {
+            count++;
+            i--;
+            j++;
+        }
+        return count;
+    }
+    int countSubstrings(string s) {
+        int totalCount = 0;
+        for(int i = 0; i < s.length(); i++ ) {
+            //ODD
+            int j = i;
+            int oddKaAns = expand(s, i, j);  
+            //EVEN
+            j = i+1;
+            int evenKaAns = expand(s, i, j);
+            totalCount = totalCount + oddKaAns + evenKaAns;
+        }
+        return totalCount;
+    }
+};
