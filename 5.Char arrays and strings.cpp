@@ -197,3 +197,182 @@ public:
         return totalCount;
     }
 };
+//////////Level 4 array and string 
+////////////////////////////////////////
+
+ //2325. Decode the Message
+ https://leetcode.com/problems/decode-the-message/description/
+
+class Solution {
+public:
+    string decodeMessage(string key, string message) {
+        char start = 'a';
+        char mapping[280] = {0};
+
+        for(auto ch:key) //this loop same as for(int i = 0;i<key.length();i++) 
+            {    
+                if(ch != ' ' && mapping[ch] == 0){ //this is why we inserted 0 to make sure mapping is only inserted once 
+                mapping[ch] = start; //adding corrosponding alphabet in map for the key 
+                start++;
+                }     
+            }
+        string ans;
+        for(auto ch: message)
+            {
+                
+                if(ch == ' ')
+                    {
+                        ans.push_back(' ');
+                    }
+                else{
+                    //cout<<ch<<endl;
+                    //char test = 'v';
+                    //cout<<mapping[test];
+                     char decodechar = mapping[ch];
+                     cout<<ch<<decodechar<<endl;
+                     ans.push_back(decodechar);
+
+                }
+                    
+            }
+        return ans;
+    }
+}; 
+
+//2391. Minimum Amount of Time to Collect Garbage
+//https://leetcode.com/problems/minimum-amount-of-time-to-collect-garbage/description/
+//this is a brute force solution and its not the best 
+ class Solution {
+public:
+    int garbageCollection(vector<string>& garbage, vector<int>& travel) {
+
+            int pickp = 0;
+            int pickm = 0;
+            int pickg = 0;
+
+            int travelp = 0;
+            int travelg = 0;
+            int travelm = 0;
+
+            int lastp = 0;
+            int lastg = 0;
+            int lastm = 0;
+
+        for(int i = 0;i<garbage.size();i++)
+            {
+                string curr = garbage[i];
+                for(int j = 0;j<curr.length();j++)
+                    {
+                        char ch = curr[j];
+
+                        if(ch == 'P')
+                            {
+                                pickp++;
+                                lastp = i;
+                            }
+                        
+                        else if(ch == 'G')
+                            {
+                                pickg++;
+                                lastg = i;
+                            }
+                        else if(ch == 'M')
+                            {
+                                pickm++;
+                                lastm = i;
+                            }
+                } 
+            }
+        //calculate travel time 
+        for(int i = 0;i<lastp;i++) 
+            {
+                travelp += travel[i];
+            }
+        for(int i = 0;i<lastg;i++) 
+            {
+                travelg += travel[i];
+            }
+
+        for(int i = 0;i<lastm;i++) 
+            {
+                travelm += travel[i];
+            } 
+    
+        int ans = (pickp+travelp) + (pickg +travelg) + (pickm+travelm);
+        return ans;
+    }
+};
+
+//791. Custom Sort String
+//https://leetcode.com/problems/custom-sort-string/description/
+
+
+class Solution {
+public:
+    static string str;
+
+    static bool compare(char char1, char char2)
+        {   
+            //This will return true if position of char 1 in str string is less than the position of char 2 in str string 
+            //when true is returned then cahr 1 will be placed before cahr 2
+            return(str.find(char1)<str.find(char2)); //this compares the given char order with the 2 chars paseed from sort ...checks their position in the char1 then moves accordingly
+        }
+    string customSortString(string order, string s) {
+        str = order;
+        sort(s.begin(), s.end(), compare); //compare function gets sent 2 chars each time ..then the compare function decides with of the 2 to keep ahead 
+        return s;
+    }
+};
+string Solution::str;
+
+//890. Find and Replace Pattern
+https://leetcode.com/problems/find-and-replace-pattern/description/
+
+
+class Solution {
+public:
+    //this function normalizes all the words and patterns into a similar format 
+    //so that we can compare them and find the solution
+    void createmapping(string& str)
+        {
+            char start = 'a';
+            char mapping[300] = {0};
+
+            for(auto ch:str){
+                if(mapping[ch] == 0)
+                    {
+                        mapping[ch] = start;
+                        start ++;
+                    }
+            }
+
+            for(int i =0;i<str.length();i++)
+                {
+                    char ch = str[i];
+                    str[i] = mapping[ch];
+                } 
+        }
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        // normalize the patter
+        vector<string> ans;
+        createmapping(pattern);
+
+        // word?
+        for(string s:words)
+            {
+                string tempString = s;
+                
+                createmapping(tempString);
+            
+        
+        if(tempString == pattern)
+            {
+                ans.push_back(s);
+            }
+        }
+       return ans; 
+    }
+
+    
+
+};
