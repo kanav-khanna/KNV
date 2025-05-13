@@ -61,3 +61,23 @@ int main() {
   printvv(v);
   return 0;
 }
+
+Comparator Rules
+It must return true if a should come before b.
+
+It should follow a strict weak ordering (i.e., no cycles).
+
+Can be a:
+
+Function
+
+Lambda
+
+Functor (struct with operator())
+
+
+✅ Summary
+Use Case	How to Use
+sort()	Use a comparator function or lambda
+priority_queue	Pass custom comparator as 3rd template arg
+set/map	Pass comparator as template argument

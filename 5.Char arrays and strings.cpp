@@ -35,6 +35,39 @@ while(i<=j)
 
     }
 //Convert to upper case 
+Why This Works:
+In ASCII, each character has a numeric code. For example:
+
+'a' = 97
+
+'b' = 98
+
+'c' = 99
+
+...
+
+'z' = 122
+
+'A' = 65
+
+'B' = 66
+
+...
+
+'Z' = 90
+
+Now, the difference between 'a' and 'A' is:
+
+cpp
+Copy
+Edit
+'a' - 'A' = 97 - 65 = 32
+This difference (32) is constant for all lowercase-uppercase letter pairs. So to convert 'd' (100) to 'D' (68), you subtract 'a' and add 'A':
+
+cpp
+Copy
+Edit
+'d' - 'a' + 'A' = 100 - 97 + 65 = 68 = 'D'
 
 Logic ...if we have any lower case char and the we do -a (minus itself) then + A(its capital) ..then we can get the capital of said char 
 
@@ -48,6 +81,7 @@ while(ch[index] != '\0'){
 
 }
 index++
+
 
 Q//Replace @ with a space 
 
@@ -88,12 +122,57 @@ class Solution {
 
 //Hardr question based on the above question - https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/description/
 //1209. Remove All Adjacent Duplicates in String II
+//bad soution ...
+class Solution {
+public:
+    string removeDuplicates(string s, int k) {
+        stack<pair<char, int>> st;
+
+        for (char ch : s) {
+            if (!st.empty() && st.top().first == ch) {
+                st.top().second++;
+            } else {
+                st.push({ch, 1});
+            }
+
+            // If count == k, pop that group
+            if (st.top().second == k) {
+                st.pop();
+            }
+        }
+
+        // Reconstruct the result string
+        string result = "";
+        while (!st.empty()) {
+            result = string(st.top().second, st.top().first) + result;
+            st.pop();
+        }
+
+        return result;
+    }
+};
+
 
 
 
 //1910. Remove All Occurrences of a Substring
 https://leetcode.com/problems/remove-all-occurrences-of-a-substring/description/
 //the below code is not the best 
+Keep looping as long as the substring part exists in s.
+
+s.find(part) tries to find the first occurrence of part in the string s.
+
+If part is found, find() returns the starting index of where it occurs.
+
+If part is NOT found, find() returns a special value: string::npos.
+
+❓ What is string::npos?
+string::npos is a constant that represents "no position".
+
+It’s defined as the largest possible value for size_t (typically 4294967295 or -1 cast to size_t).
+
+So if s.find(part) == string::npos, it means part was not found in s.
+
 
 class Solution {
     public:
@@ -167,10 +246,97 @@ public:
 //then get total minutes then sort the array 
 //edge case ?
 
+////My solution ....In the end the circular difference part .....was copied ..it is what it is 
+class Solution {
+public:
+    int findMinDifference(vector<string>& timePoints) {
+        //convert the time to minutes 
+        vector<int> totalminutes;
+        
+        for(int i = 0;i<timePoints.size();i++)
+            {
+               string temphours = timePoints[i];
+               int hours = stoi(temphours.substr(0,2));
+               int minutes = stoi(temphours.substr(3,5)); 
+               if(hours == 0 && minutes == 0)
+                {
+                    totalminutes.push_back((1440)+minutes);
+                } 
+                else{    
+                totalminutes.push_back((hours*60)+minutes);
+                }
+                //cout<<totalminutes[i]<<endl;
+            }
+        //sort the leements is ascendeing order
+        sort(totalminutes.begin(),totalminutes.end());
+        //find minimum difference between all the elements 
+
+        int minDiff = INT_MAX;
+        for (int i = 0; i < totalminutes.size() - 1; ++i) {
+            minDiff = min(minDiff, totalminutes[i + 1] - totalminutes[i]);
+        }
+
+        // Consider the circular difference between last and first element
+        minDiff = min(minDiff, 24 * 60 - totalminutes.back() + totalminutes.front());
+        
+        return minDiff; 
+    }
+};
+
 
 //647. Palindromic Substrings
 //https://leetcode.com/problems/palindromic-substrings/description/
 //VV IMP
+/*Why ODD and EVEN?
+Palindromes can be:
+
+Odd-length: e.g. "aba" — center is the middle character (b)
+
+Even-length: e.g. "abba" — center is between two characters (bb)
+
+🔹 Odd Palindromes:
+cpp
+Copy
+Edit
+int oddKaAns = expand(s, i, i);
+The center is one character (e.g. i = j = 2 for "aba")
+
+Expands outward: s[i-1] == s[j+1]
+
+🔹 Even Palindromes:
+cpp
+Copy
+Edit
+int evenKaAns = expand(s, i, i+1);
+The center is between two characters (e.g. "abba" between b and b)
+
+Starts with i and i+1, expands outward: s[i-1] == s[j+1]
+
+🔄 The expand() Function
+cpp
+Copy
+Edit
+int expand(string s, int i, int j)
+This function tries to expand outward from the center as long as the characters match.
+
+cpp
+Copy
+Edit
+while(i >= 0 && j < s.length() && s[i] == s[j]) {
+    count++;
+    i--;
+    j++;
+}
+Example: s = "abba", starting at i=1, j=2
+s[1]='b', s[2]='b' → match → count++
+
+Move out: i=0, j=3 → s[0]='a', s[3]='a' → match → count++
+
+Move out: i=-1, j=4 → i is out of bounds → stop
+
+This found "bb" and "abba".
+
+*/
 class Solution {
 public:
     int expand(string s,int i, int j) {
@@ -197,6 +363,7 @@ public:
         return totalCount;
     }
 };
+
 //////////Level 4 array and string 
 ////////////////////////////////////////
 
@@ -213,7 +380,7 @@ public:
             {    
                 if(ch != ' ' && mapping[ch] == 0){ //this is why we inserted 0 to make sure mapping is only inserted once 
                 mapping[ch] = start; //adding corrosponding alphabet in map for the key 
-                start++;
+                start++; //iterate through a,b,c,d,e,
                 }     
             }
         string ans;
@@ -225,11 +392,9 @@ public:
                         ans.push_back(' ');
                     }
                 else{
-                    //cout<<ch<<endl;
-                    //char test = 'v';
-                    //cout<<mapping[test];
-                     char decodechar = mapping[ch];
-                     cout<<ch<<decodechar<<endl;
+                    
+                     char decodechar = mapping[ch]; // What does this part do ?
+                     //cout<<ch<<decodechar<<endl;
                      ans.push_back(decodechar);
 
                 }
@@ -328,6 +493,19 @@ string Solution::str;
 //890. Find and Replace Pattern
 https://leetcode.com/problems/find-and-replace-pattern/description/
 
+createmapping() turns any string into its normalized pattern (like "abb").
+
+It’s called:
+
+Once on the pattern
+
+Once for each word
+
+If both normalized forms match, the word follows the same character structure as the pattern.
+
+Let me know if you'd like a visual walk-through of a specific example!
+
+
 
 class Solution {
 public:
@@ -352,6 +530,7 @@ public:
                     str[i] = mapping[ch];
                 } 
         }
+
     vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
         // normalize the patter
         vector<string> ans;
@@ -376,3 +555,6 @@ public:
     
 
 };
+
+//Look into cutom comparator
+//Look into the extra questions given above 
