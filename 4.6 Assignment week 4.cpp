@@ -193,3 +193,147 @@ public:
         return vector<int>(arr.begin()+low+1,arr.begin()+high);
     }
 };
+///////////////Exponential search ///doubling search///galloping search//straslic search///
+Given a sorted array ...find x 
+//Binary search has a time complexity of O(log n) exponential search aims to improve on this 
+//If we search only on a sub part...we can improve time complexity since we are not searching on a larger array 
+
+//in this we check if a[i] <= x if this confition is true then we do i =i*2 and keep checking till the condition is not true anymore
+//then we can Give binary search the i index and the i/2 index as ending and starting points for its search thus making a sub array 
+
+//Time complexity 
+the exponential part would have a complexity of O(log m) ..the while loop (M being the position it goes up to)
+
+int bs( int a[],int start, int end, int x)
+    {   
+        int mid = start+(end-start)/2;
+
+        while (start<=end)
+            {
+                if(a[mid] == x)
+                    {
+                        return 0;
+                    }
+                else if(a[mid]<x)
+                    {
+                        start = mid+1;
+                    }
+                else if(a[mid]>x)
+                    {
+                        end = mid-1
+                    }
+                mid = start+(end-start)/2;
+            }
+        return -1;
+    }
+
+
+int expsearch(int a[],int n,int x){
+            if(a[0] == x)
+                {
+                    return 0;
+                }
+            int i = 1;
+            while(a[i] <= x && i<n]) //exponential search check for the number and increment the index by 2 each time 
+                {
+                    i=i*2;
+                }
+            return bs(a,i/2,min(i,n-i),x); //min function used to make sure we do not return an index larger than the array size ...it will return the minimum or the size of array by this 
+}
+
+int main()
+{
+    int arr = {3,4,5,6,11,13,14,56,70};
+    int n = sizeof(a)/sizeof(int);
+    int x = 13;
+    int expsearch = (a,n,x);
+    return 0;
+
+}
+
+///////Book allocation problem //////VVV IMP many different questions can be made from this one 
+//Allocate number of pages hard on GFG ...but the problem has been changed 
+//https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
+
+
+Problem solved in the video 
+we have an array of books with number of pages at each index 
+M is given which is the number of students 
+allocation on books needs to be contigous 
+We need to distribute pages in a way that the difference is minimized ...so we look for 
+the permutation where the maximum number of pages allocated to the students is minimum
+//Return -1 if a valid ditribution is not possible like in the case of number of students > books then some wil be left without which is not valid 
+
+
+//Brute force 
+find all the permutations and then find the minimum of these and return the answer 
+horrible time complexity 
+
+//Better solution 
+Define a search space 
+In this the minimum will be 0 and the MAX will be the total number of pages since all allocations will always be less than the total number of books 
+Then on this search space we can apply binary search  
+Then try to find the sum 
+if(not possible solution)
+    start = mid+1
+if(possible solution found then)
+{
+    //miminise the search space
+}
+
+//Code
+
+bool ispossiblesolution(int arr[], int n , int m, int sol)
+    {
+        int pagesum = 0;
+        int count =1;
+        
+        for(int i =0;i<n;i++)
+            {
+                if(A[i]>sol)
+                    {
+                        return false;
+                    }
+                if(pagesum +a[i] >sol){
+                    count++;
+                    pagesum=A[i];
+                    if(c>M)
+                        {
+                            return false;
+
+                        }
+                }
+                else{
+                    pagesum+=A[i];
+                }
+            }
+        return true;
+    }
+
+
+int findpages(int A[], int N, int M) //m is number of students and N is size of array 
+    {
+        if(m>n)     //Case where students are move and number of books is less 
+            {
+                return -1;   
+            }
+        int start = 0;
+        int end = accumulate(A,A+N,0) //in built function to sum all array telements //start end and initial sum as parameters
+        int ans = -1;
+
+        while(start<=end)
+            {
+                int mid = (start+end)/2;
+
+                if(ispossiblesolution(A,N,M,mid))
+                    {
+                        ans = mid; 
+                        end = mid-1; //we look at left of search space
+
+                    }
+                else{
+                    start = mid+1; we look at the right side of search space 
+                }
+            }
+        return ans;
+    }
