@@ -337,3 +337,138 @@ int findpages(int A[], int N, int M) //m is number of students and N is size of 
             }
         return ans;
     }
+/////////////////FINAL CODE THAT WORKED ON GFG
+x
+    bool ispossiblesol(vector<int> &arr,int n,int m,int sol)
+        {
+            int pagesum = 0;
+            int count = 1;
+            for(int i =0;i<n;i++)
+                {
+                    if(arr[i] > sol) //if the page count at the index is pore than the
+                                     //proposed solution then no point checking further just return false
+                        {
+                            return false;
+                        }
+                    if(pagesum+arr[i] >sol)
+                        {
+                          count++;
+                          pagesum = arr[i];
+                          if(count>m) //this makes sure our count does not go above the number of students 
+                            {
+                                return false;
+                            }
+                        }
+                        
+                    else{
+                        pagesum+=arr[i];
+                    }
+                
+                }
+            return true;
+        }
+        
+    int findPages(vector<int> &arr, int k) {
+        // code here
+        int n = arr.size();
+        if(k>n)
+            {
+                return -1;
+            }
+        int start = 0;
+        int end = 0;
+            for(int i =0;i<n;i++)
+                {
+                    end+=arr[i];
+                }
+        int ans = -1;
+        
+        int mid = start+(end-start)/2;
+        
+        while(start<=end)
+            {
+                if(ispossiblesol(arr,n,k,mid))
+                    {
+                        ans = mid;
+                        end = mid-1;
+                        
+                    }
+                else{
+                    start = mid+1;
+                }
+            
+                mid = start+(end-start)/2;
+            }
+        return ans;
+    }
+
+////////////The Painter's Partition Problem-II //similar to the above problem 
+//https://www.geeksforgeeks.org/problems/the-painters-partition-problem1535/1
+int issolution(vector<int>& arr,int n,int k,long long mid)
+        {
+            long long int timesum = 0;
+            int count = 1;
+            
+            for(int i = 0;i<n;i++)
+                {
+                    if(arr[i] > mid)
+                        {
+                            return false;
+                        }
+                    if(arr[i]+timesum >mid)
+                        {
+                            count++;
+                            timesum=arr[i];
+                            if(count>k)
+                                {
+                                    return false;
+                                }
+                        }
+                    else{
+                        timesum+=arr[i];
+                    }
+                }
+            return true;
+        }
+  
+    
+    int minTime(vector<int>& arr, int k) {
+        // code here
+        long long int start = 0;
+        long long int end = 0;
+        int n = arr.size();
+       
+        
+        long long int ans = -1;
+        
+        for(int i =i;i<n;i++)
+            {
+                end+=arr[i];
+            }
+        int mid = start+(end-start)/2;
+            
+            while(start<=end)
+                {
+                   if(issolution(arr,n,k,mid))
+                            {
+                                ans = mid;
+                                end = mid-1;
+                                
+                            }
+                    else{
+                        start = mid+1;
+                        
+                    }
+                    
+                    mid =start+(end-start)/2;
+                }
+        
+        
+        // return minimum time
+        return ans;
+    }
+};
+
+
+//Aggressive Cows
+/////////https://www.geeksforgeeks.org/problems/aggressive-cows/1
