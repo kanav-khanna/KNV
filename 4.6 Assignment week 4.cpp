@@ -586,3 +586,14 @@ public:
         return ans;
     }
 };
+
+//EKO SPOJ
+//https://www.spoj.com/problems/EKO/
+
+//Odly enough according to the explaination of this question ..the blade that cuts the trees ..depending on its hight cuts all the trees in the given array together 
+//and not just 1 tree ...i was initially thinging we adjust the hight to cut one tree at a time but hats wrong 
+
+//n = number of trees 
+//m - the minimum amount of wood thats required
+
+//the array holds all the hights of the trees 
