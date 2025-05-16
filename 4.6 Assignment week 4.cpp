@@ -472,3 +472,117 @@ int issolution(vector<int>& arr,int n,int k,long long mid)
 
 //Aggressive Cows
 /////////https://www.geeksforgeeks.org/problems/aggressive-cows/1
+
+ANother similar question that i should do - https://leetcode.com/problems/magnetic-force-between-two-balls/description/
+
+In this question we can take the 
+min = 0;
+max = maxpos -minpos so 9-1=8 ...why ? because in Dry run we see waht we are not able to place item at the last index 
+mid = 0+8/2 =4;
+
+Since we have to maximize the distance between the cows ...When i possible solution is found i would need to go to the right ....Not the left like prevous questions 
+start = mid+1;
+
+   bool possiblesol(vector<int> &stalls, int k, int mid)
+            {
+                //Can we place k cows with atleast k difference between thae cows
+                int c = 1;
+                int pos = stalls[0];
+                
+                for(int i =0;i<stalls.size();i++)
+                    {
+                        if(stalls[i]-pos>=mid)
+                            {
+                                c++;
+                                pos= stalls[i]; //one more cow has been placed
+                            }
+                        if(c==k)
+                            {
+                                return true;
+                            }
+                    }
+                return false;
+            }
+    
+    
+    int aggressiveCows(vector<int> &stalls, int k) {
+
+        // Write your code here
+        //total of the stalls arr would be my search space ...K number of cows need to be placed
+        int n = stalls.size();
+        sort(stalls.begin(),stalls.end());
+        
+        int start = 0;
+        int end = stalls[stalls.size()-1] -stalls[0]; //This is the largest distance that is possible...which is start index -end
+        
+        int ans =-1;
+        
+        while(start<=end)
+            {
+                 int mid = (start+end)/2;
+                 
+                 if(possiblesol(stalls,k,mid))
+                    {
+                        ans = mid;
+                        start=mid+1; 
+                    }
+                else{
+                    end=mid-1;
+                }
+            }
+        return ans;
+        
+    }
+
+
+////https://leetcode.com/problems/magnetic-force-between-two-balls/description/ 
+1552. Magnetic Force Between Two Balls
+
+class Solution {
+public:
+
+    bool possiblesol(vector<int>& position, int m, int mid)
+        {
+            int count = 1;
+            int pos = position[0];
+
+            for(int i = 0;i<position.size();i++)
+                {
+                    if(position[i] - pos>=mid)
+                        {
+                            count++;
+                            pos = position[i];
+
+                        }
+                    if(count == m)
+                        {
+                            return true;
+                        }
+                }
+            return false;
+        }
+    int maxDistance(vector<int>& position, int m) {
+        sort(position.begin(),position.end());
+        int start = 0;
+        int n = position.size();
+        int end = position[position.size()-1] - position[0]; //this gives us the max difference possible 
+        int ans = -1;
+        
+        while(start<=end)
+            {
+              int mid = (start+end)/2;
+
+              if(possiblesol(position,m,mid))
+                {   
+                    ans = mid;
+                    //then go right 
+                    start=mid+1;
+                }
+
+                else{
+                    end = mid-1;
+                }
+            }
+        return ans;
+    }
+};
