@@ -597,3 +597,118 @@ public:
 //m - the minimum amount of wood thats required
 
 //the array holds all the hights of the trees 
+
+
+//If i wanna solve this question via brute force menthod that would mean 
+Input:
+4 7
+20 15 10 17
+
+Output:
+15
+
+Since 4 is the number of trees and 7 is the lenth of tree required 
+to find cut hight we can do - (20-1)+(15-1)+(10-1)+(17-1) //this would be for if the cutting balse is set to hight 1 then this is how much wood would be cut
+//Like this we can iterate the hight to the max possible whihc in this case is 20 ...so from 0-20 the subtract the tree hight to find whats being cut for each iternation till we find a good hight 
+
+
+//Binary search approach 
+
+
+//Code 
+#include<algorithm>
+bool possiblesol(vector <long long int> trees, long long int m, long long int mid)
+{
+
+    long long int wood = 0;
+
+    for(int i =o;i<trees.size();i++)
+        {
+            if(trees[i]>mid) //prevent negative numbers 
+                { 
+                    wood+= trees[i] - mid;
+                }
+        }
+    reuturn wood>=m;
+
+}
+
+long long int maxsawbladehight(vector <long long int> trees, long long int m)
+    {
+            long long int start,end,ans = -1;
+            end = *max_element(trees); //this function return a pointer to the max element so we need to use the * in declaration if we want the value
+
+            while(start<=end)
+                {
+                    long long int mid = start+(end-start)/2;
+
+                    if(possiblesol(tree,m,mid))
+                        {
+                             ans = mid;
+                             start=mid+1;
+                        }
+                    else{
+                        end = mid-1;
+                    }
+                
+                }
+                return ans;
+    }
+
+int main(){
+start = 0
+end = 20;
+long long int n,m;
+cin>>n>>m;
+vector <long long int> trees;
+
+while(n--)
+    {
+        long long int hight = cin>>hight;
+        trees.push_back(hight);
+    }
+
+    cout<<maxsawbladehight(tree, m)<<endl;
+
+    reuturn 0;
+}
+
+//PRATA spoj
+https://www.spoj.com/problems/PRATA/
+
+p- pranta
+l= cooks 
+r = rank of each cook 1-8;
+
+cook with rank R can cook the first prantha in R minutes 
+
+cook time for prata
+1st - r minutes 
+2nd - 2r minutes 
+3rd - 3r minutes 
+and so in 
+
+//Example 
+Input:
+3  //number of test cass
+10 //prantha 1
+4 1 2 3 4 
+8 //prantha 2
+1 1
+8 //prantha 3
+8 1 1 1 1 1 1 1 1
+
+Output:
+12
+36
+1
+
+
+The first line tells the number of test cases. Each test case consist of 2 lines. 
+In the first line of the test case we have P the number of prata ordered. 
+In the next line the first integer denotes the number of cooks L and L integers follow in the same line each denoting the rank of a cook.
+
+
+
+// brute force solution 
+
