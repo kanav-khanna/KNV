@@ -691,15 +691,15 @@ and so in
 //Example 
 Input:
 3  //number of test cass
-10 //prantha 1
-4 1 2 3 4 
-8 //prantha 2
+10 //number of prathas ordered (1st test case)
+4 1 2 3 4 //First int denotes the number of cooks ...then the ints after that denote the rank of the cooks
+8 //number of prathas orders (2nd test case)
 1 1
 8 //prantha 3
 8 1 1 1 1 1 1 1 1
 
 Output:
-12
+12 
 36
 1
 
@@ -709,6 +709,196 @@ In the first line of the test case we have P the number of prata ordered.
 In the next line the first integer denotes the number of cooks L and L integers follow in the same line each denoting the rank of a cook.
 
 
+A cook with the rank 4 will cool 10 prathas in 4+(2X4)+(3X4)+(4X4)+.....
 
-// brute force solution 
+if we take 4 common and do 4X{1+2+3+4+5} ...then this is similar to the formula (number of pranthas) *(n X (N+1))/2  //i think this is a AP formula ...
 
+So if i give the most inefficcient cook ..everything to cook that will be the max time taken to cook 
+
+This gives us a minimum and a maximum 
+min - 0;
+max - time taken by the cook with highest rank when all the prathas are given to him 
+
+With the min and the max we can find the mid value 
+Can the cooks cook order of 10 prata in mid minutes ?
+
+//Binary search solution 
+
+bool ispossiblesolution(vector<int>cooksranks,int np,int mid)
+    {
+        int currp = 0; //initially cooled pratha count
+
+        for(int i = 0;i<cookranks.size();i++)
+            {
+                int r = cookranks[i],j=1; //r = rank of the cook  
+                //r will iterate through all the rankes 
+                int timetaken = 0;
+                while(true)
+                {
+                    if(timetaken+j*r<=mid)  //if this condition is true then we will add the time and increment the number of pratas made ..then increment j
+                        {
+                            ++currp;
+                            timetaken += j*r;
+                            ++j;
+                        }
+                    else{
+                        break; //else come out of the loop ///do the check for the next ith element 
+                    }
+                }
+                
+                if(currp>=n)
+                    {
+                        return true;
+                    }
+                
+            }
+        
+            return false;
+    }
+
+int mintimetocompleteorder(vector<int>cooksranks, int np)
+    {
+        int start = 0;
+        int highelement = *max_element(cookranks.begin(),cookranks.end());
+        int end =  highelement *(np*(np+1))/2; 
+        int ans = -1;
+
+        while(start<=mid)
+            {
+                int mid = start+(end-start)/2;
+                
+                if(ispossiblesolution(cookranks,np,mid))
+                    {
+                        ans = mid;
+                        end = mid-1;
+                    }
+                    else{
+                        start=mid+1;
+                    }
+            }
+        return ans;
+    }
+
+int main(){
+int np,nc;
+cin<<np<<nc;
+vector<int>cooksranks;
+while(nc--)
+    {
+        int R; cin>>R;
+        cookransk.push_back(r);
+    }
+
+cout<<mintimetocompleteorder(cookranks, np)<<endl;
+
+}
+
+////////////////////////
+Find SQRT sing binary search with precision 
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int mySqrt(int n)
+{
+    int s = 0, e = n;
+    int ans = 0;
+    while (s <= e)
+    {
+        int mid = (e - s) / 2 + s;
+
+        // predicate fn
+        if (mid * mid <= n)
+        {
+            ans = mid;
+            s = mid + 1; // go right
+        }
+        else
+            e = mid - 1; // go left
+    }
+    return ans;
+}
+
+double myPrecisionSqrt(int n)
+{
+    double sqrt = mySqrt(n);
+    int precision = 10;
+    double step = 0.1;
+    for (int i = 0; i < precision; ++i)
+    {
+        double j = sqrt;
+        while (j * j <= n)
+        {
+            sqrt = j;
+            j += step;
+        }
+        step /= 10;
+    }
+    return sqrt;
+}
+
+int main()
+{
+    int n = 63;
+    // cout << mySqrt(n) << endl;
+    cout << myPrecisionSqrt(n) << endl;
+    return 0;
+}
+
+//////////Devide with binary seach with decimal precision 
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int divide(int dividend, int divisor)
+{
+    int s = 0, e = dividend;
+    int ans = 0;
+    while (s <= e)
+    {
+        int mid = (e - s) / 2 + s;
+        // check if mid is the answer, treat mid as Quotient
+        // Quotient * Divisor + Reminder = Dividend,
+        // Predicate: Quotient * Divisor <= Dividend
+        if (mid * divisor <= dividend)
+        {
+            ans = mid;
+            // go right for more precise answer
+            s = mid + 1;
+        }
+        else
+            e = mid - 1;
+    }
+    return ans;
+}
+
+double myPrecisionDivide(int dividend, int divisor)
+{
+    double quotient = divide(dividend, divisor);
+    int precision = 5;
+    double step = 0.1;
+    for (int i = 0; i < precision; ++i)
+    {
+        double j = quotient;
+        while (j * divisor <= dividend)
+        {
+            quotient = j;
+            j += step;
+        }
+        step /= 10;
+    }
+    return quotient;
+}
+
+int main()
+{
+    int dividend = 29;
+    int divisor = 7;
+    cout << myPrecisionDivide(dividend, divisor) << endl;
+    return 0;
+}
