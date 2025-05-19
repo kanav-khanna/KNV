@@ -206,3 +206,64 @@ public:
 
 8. String to Integer (atoi)
 //https://leetcode.com/problems/string-to-integer-atoi/description/
+
+So we do hae a inbuilt c++ function for this 
+int integer = atoi(s.c_str());  //s.c_str() this was done to convert the string to char ...then atoi to convert the string to a int 
+
+//but in this funciton we need to implement the ATOI unctionality our selves 
+1.ignore leading white space 
+2.determine sign 
+3.if digit found then conver to int ..how ?
+4.till next non digit char is found 
+5.special handeling nums out of range of int max or int min then we return min or max 
+
+class Solution {
+public:
+    int myAtoi(string s) {
+        int nums = 0,i=0,sign=1; //+ve
+
+        while(s[i] == ' ')
+            {
+                i++;
+            }
+
+        if(i<s.size()&&(s[i] == '-' || s[i] == '+'))
+            {
+                sign = s[i] == '+' ? 1 : -1;
+                i++;
+            }
+        
+        while(i<s.size()&&isdigit(s[i]))
+            {   
+                if(nums> INT_MAX/10 || (nums == INT_MAX/10 && s[i]>'7'))
+                    {
+                        return sign == -1? INT_MIN : INT_MAX;
+                    }
+                nums = nums*10 + (s[i]-'0'); //this converts from string to int //string - int 0 = a int 
+                i++;
+            }
+        return nums*sign;
+
+    }
+};
+
+28. Find the Index of the First Occurrence in a String
+https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
+//not the solution in hte vid but i like this one better 
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int n = haystack.size();
+        int m = needle.size();
+
+        for(int i =0;i<=n -m;i++)
+            {
+                if(haystack.substr(i,m) == needle)
+                    {
+                        return i;
+                    }
+            }
+        return -1;
+    }
+};
