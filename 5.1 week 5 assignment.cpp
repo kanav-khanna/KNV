@@ -267,3 +267,109 @@ public:
         return -1;
     }
 };
+
+//////////////205. Isomorphic Strings/
+https://leetcode.com/problems/isomorphic-strings/description/
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        int hash[256] = {0};
+        bool istcharsmapped[256] ={0};
+
+        for(int i =0;i<s.size();i++)
+            {   cout<<s[i]<<endl;
+                cout<<hash[s[i]]<<endl;
+
+                if(hash[s[i]] == 0 && istcharsmapped[t[i]] == 0)
+                    {   
+                        cout<<"true";
+                        hash[s[i]] = t[i];
+                        istcharsmapped[t[i]] = true;
+                    }
+            }
+        
+        for(int i =0;i<s.size();i++){
+            cout<<char(hash[s[i]]);
+            if(char(hash[s[i]]) != t[i]) //hash is a int has so needs to be converted ....
+                {
+                    return false;
+                }
+        }
+
+    return true;
+    }
+};
+
+
+///Group Anagram 
+//https://leetcode.com/problems/group-anagrams/
+2 trings are anagram when the numeber of chars and its number of occurances is the same 
+
+method 1 
+if i sort all the strings then the 2 strigs that are an anagram will become equal ...
+//This is not the most optimized solution
+//TC - we have 2 loops + sorting + unordered map O(n k log k)
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        
+        map <string, vector<string> > mp;
+
+        for(int i = 0;i<strs.size();i++)
+            {   
+                string temp = strs[i];
+                sort(temp.begin(),temp.end());
+                mp[temp].push_back(strs[i]);
+            }
+        vector<vector<string>>ans;
+
+        for(auto it = mp.begin();it!=mp.end();it++)
+            {
+                ans.push_back(it->second);
+            }
+    
+        return ans;
+    }
+};
+
+//2nd solution 
+we need to reduce time comlexity by removing the storting 
+
+we use a hash[256];
+we make a hash map for a and a hach map for b if both are the same then they are anagram
+TC- O(n*k)
+class Solution {
+public:
+    std::array<int, 256> hash (string s)
+        {
+            std::array<int, 256> hash ={0};
+
+            for(int i = 0;i<s.size();i++)
+                {
+                    hash[s[i]]++;
+                }
+
+            return hash;
+        }
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        
+        map <std::array<int,256>, vector<string> >mp;
+
+
+        for(int i = 0;i<strs.size();i++)
+            {      string temp = strs[i];
+                mp[hash(temp)].push_back(strs[i]);
+            }
+        vector<vector<string>>ans;
+
+        for(auto it = mp.begin();it!=mp.end();it++)
+            {
+                ans.push_back(it->second);
+            }
+    
+        return ans;
+    }
+};  
+
