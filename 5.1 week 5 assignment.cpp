@@ -373,3 +373,83 @@ public:
     }
 };  
 
+///////////////
+
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int index = 0; 
+        int count = 1;
+        int prev = chars[0];
+
+        for(int i =1;i<chars.size();i++)
+            {
+                if(chars[i] == prev)
+                    {
+                        count++;
+                    }
+                else{
+                    chars[index++] = prev;
+
+                    if(count>1)
+                        {   int start = index;
+                            while(count)
+                                {
+                                    chars[index++] = count%10 + '0'; //This is because each digit needs to be stored in a ////different index and the + '0' is to convert an int to string 
+                                    count /=10;
+                                }
+                                reverse(chars.begin()+start,chars.begin()+index); //we have to reverse becasue when we devide to seperate the digits
+                                                                                  //the answer is the right side digit...so reverse is the right ans 
+                        }
+                    prev = chars[i];
+                    count = 1;
+                }
+            }  
+
+        chars[index++] = prev; //this part is just to handle cases where the loop ends by the final values were not written 
+       if(count>1)
+                        {   int start = index;
+                            while(count)
+                                {
+                                    chars[index++] = count%10 + '0'; //This is because each digit needs to be stored in a ////different index and the + '0' is to convert an int to string 
+                                    count /=10;
+                                }
+                                reverse(chars.begin()+start,chars.begin()+index);
+                                    
+                        }
+        
+
+        return index; 
+    }
+};
+
+//12. Integer to Roman
+https://leetcode.com/problems/integer-to-roman/
+
+Map iterate bigger to smaller
+
+
+class Solution {
+public:
+    string intToRoman(int num) {
+        string romansymbols[] = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        
+        int values[] = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+
+        string ans="";
+
+        for(int i =0;i<13;i++)
+        {
+                    while(num>=values[i])
+                        {
+                            ans+=romansymbols[i];
+                            num-=values[i];
+                        }
+        }
+
+    return ans;
+    }
+};
+
+///6. Zigzag Conversion
+https://leetcode.com/problems/zigzag-conversion/description/

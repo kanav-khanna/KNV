@@ -84,7 +84,7 @@ public:
 TC-    O(n*log(log n))
 
 
-in this we crate a vecor with everything marked as prime 
+in this we crate a vector with everything marked as prime 
 then we run a loop start from 2
 the loop will run and do ans++ for each element marken true 
 and then it will 
