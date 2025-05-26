@@ -502,4 +502,97 @@ class Solution {
             return ans;
         }
     };
+
+
+//////179. Largest Number
+https://leetcode.com/problems/largest-number/description/
+
+class Solution {
+public:
+
+    static bool decrease(string a, string b)
+        {   
+            string t1 = a+b;
+            string t2 = b+a;
+            return t1>t2;
+        }
     
+    string largestNumber(vector<int>& nums) {
+        vector<string>snums;
+        string ans = "";
+
+        for(auto n:nums)
+            {   cout<<n;
+                snums.push_back(to_string(n));
+            }   
+        
+        sort(snums.begin(),snums.end(),decrease);
+    
+        if(snums[0] == "0")
+            {
+                    return "0";
+            }
+        for(auto str:snums)
+        {
+            ans+=str;
+            //cout<<str;
+        }
+        return ans;
+    }
+};
+
+767. Reorganize String
+//https://leetcode.com/problems/reorganize-string/description/
+
+//Method 1 
+Using priority queue ....O(nlogn) //This should be revisited later when i story priority queue.
+
+//Method 2 Greedy 
+
+class Solution {
+public:
+    string reorganizeString(string s) {
+        int hash[26] = {0};
+
+        for(int i =0;i<s.size();i++)
+            {
+                hash[s[i]-'a']++;
+            }
+        
+        char max_freq_char;
+        int max_freq = INT_MIN;
+        for(int i =0;i<26;i++)
+            {
+                if(hash[i]>max_freq)
+                    {
+                        max_freq= hash[i];
+                        max_freq_char = i + 'a';
+                    }
+            }
+        int index = 0;
+
+        while(max_freq>0 && index <s.size())
+                {
+                    s[index] = max_freq_char;
+                    max_freq--;
+                    index +=2; 
+                }
+            if(max_freq != 0)
+                {
+                    return "";
+                }
+            hash[max_freq_char - 'a'] = 0;
+
+        //place the rest of the chars 
+        for(int i = 0;i<26;i++){
+            while(hash[i]>0)
+            {
+                index = index >=s.size()?1:index;
+                s[index] = i+'a';
+                hash[i]--;
+                index +=2;
+            }
+        }
+        return s;
+    }
+};
