@@ -453,3 +453,53 @@ public:
 
 ///6. Zigzag Conversion
 https://leetcode.com/problems/zigzag-conversion/description/
+
+class Solution {
+    public:
+        string convert(string s, int numRows) {
+    
+            if (numRows == 1) {
+                return s;
+            }
+    
+            vector<string>zigzag(numRows);
+    
+            int i = 0, row = 0;
+            bool direction = 1; // 1 means top to bottom
+    
+            while (true) {
+                if (direction == 1) {
+                    while (row < numRows && i < s.size()) {
+                        zigzag[row].push_back(s[i]);
+                        i++;
+                        row++;
+                    }
+                    row = numRows - 2;
+                }
+    
+                else {
+                    while (row >= 0 && i < s.size()) {
+                        zigzag[row].push_back(s[i]);
+                        i++;
+                        row--;
+                    }
+    
+                    row = 1;
+                }
+    
+                if (i >= s.size()) {
+                    break;
+                    
+                }
+                direction = !(direction);//i messed up here ...i was setting it to 0 but need to use ! so the  value is flipped 
+            }
+    
+            string ans = "";
+            for (int i = 0; i < zigzag.size(); i++) {
+                ans += zigzag[i];
+            }
+    
+            return ans;
+        }
+    };
+    
