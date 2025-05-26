@@ -28,3 +28,5 @@ Arr
 
 
 //Refer to the codes its just better like that lol
+
+Pointer vid 2 - x
