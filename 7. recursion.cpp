@@ -69,3 +69,10 @@ public:
 
 H/W traverse array using recursion and find max element 
 h/W given digits then return the number 
+
+
+///////INCLUDE EXCLUDE pattern for recursion ////////////////
+
+Q- print all sub sequences of a string 
+n length string will have 2 ki power n sub sequences
+
