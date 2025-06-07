@@ -76,3 +76,36 @@ h/W given digits then return the number
 Q- print all sub sequences of a string 
 n length string will have 2 ki power n sub sequences
 
+
+https://www.geeksforgeeks.org/problems/cutted-segments1642/1
+Maximize The Cut Segments
+But again this solution will TLE because recursion is just that useless 
+
+class Solution {
+  public:
+    // Function to find the maximum number of cuts.
+    int maximizeTheCuts(int n, int x, int y, int z) {
+        // Your code here
+        if(n==0)
+            {
+                return 0;
+            }
+        if(n <0)
+            {
+                return INT_MIN;
+            }
+            
+        int option1 = 1+maximizeTheCuts(n-x,x,y,z);
+        int option2 = 1+maximizeTheCuts(n-y,x,y,z);
+        int option3 = 1+maximizeTheCuts(n-z,x,y,z);
+        
+        int finalans = max(option1, max(option2,option3));
+        return finalans;
+    }
+};
+
+
+///////////
+https://leetcode.com/problems/coin-change/description/
+
+https://leetcode.com/problems/house-robber/description/
