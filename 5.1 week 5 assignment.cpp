@@ -674,3 +674,156 @@ public:
         return beams;
     }
 };
+
+//273. Integer to English Words (hard)
+https://leetcode.com/problems/integer-to-english-words/description/
+******** this thing needs to be revised i have see other questions like this one and i should know this******
+
+class Solution {
+public:
+
+    vector<pair<int, string>> mp = {{1000000000, "Billion"}, {1000000, "Million"}, {1000, "Thousand"}, {100,"Hundred"}, {90, "Ninety"}, {80, "Eighty"}, {70, "Seventy"}, {60, "Sixty"}, {50, "Fifty"}, {40,"Forty"}, {30, "Thirty"}, {20, "Twenty"}, {19,"Nineteen"}, {18,"Eighteen"}, {17, "Seventeen"}, {16, "Sixteen"}, {15, "Fifteen"}, {14, "Fourteen"}, {13, "Thirteen"}, {12, "Twelve"}, {11,"Eleven"}, {10,"Ten"},{9,"Nine"},{8,"Eight"},{7 ,"Seven"}, {6, "Six"}, {5,"Five"}, {4,"Four"}, {3,"Three"}, {2,"Two"}, {1,"One"}};
+
+    string numberToWords(int num) {
+        if(num == 0)
+            {
+                return "Zero";
+            }
+        
+        for(auto it:mp)
+            {
+                if(num>=it.first){
+                    string a = "";
+
+                    if(num>=100){
+                        a = numberToWords(num / it.first) + " ";
+                    }
+                    string b = it.second;
+                    
+                    string c = "";
+                    if(num % it.first != 0){
+                        c= " "+numberToWords(num% it.first);
+                    }
+                
+                    return a+b+c;
+                }
+            }
+        return "";
+    }
+}; 
+
+
+////////1155. Number of Dice Rolls With Target Sum
+https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/description/
+*** the below solution will TLe ...Better olution will do done with DP
+class Solution {
+public:
+    int numRollsToTarget(int n, int k, int target) {
+       if(target<0) return 0; //target is 0 or less
+       if(n==0 && target ==0) return 1; //good case
+       if(n==0 && target != 0) return 0; //dice finished but the target not complete
+       if(n != 0 && target ==0) return 0 //dice not finished yet but the target is already 0
+       
+       int ans = 0;
+       
+       for(int i = 1;i<=k;i++)
+        {
+            ans = ans + numRollsToTarget(n-1,k,target-i);
+        }
+        return ans;
+    
+    }
+};
+
+///44. Wildcard Matching
+https://leetcode.com/problems/wildcard-matching/description/
+*****another hard level question that needs to be revised************* TLE THIS ONE cannot be submitted 
+time complexity 2 raised to the power n 
+
+class Solution {
+public:
+    bool ismatchhelper(string &s, int si, string &p, int pi)
+        {
+            //base case
+            if(si == s.size() && pi == p.size())
+                {
+                    return true;
+                }
+            //advanced base
+            if(si == s.size() && pi < p.size())
+                {
+                    while(pi<p.size())
+                        {
+                            if(p[pi]!='*') return false;
+                            pi++;
+                        }
+                    return true;
+                }
+
+            //single char matching
+            if(s[si] == p[pi] || '?' == p[pi])
+            {
+                return ismatchhelper(s,si+1,p,pi+1);
+            }
+            if(p[pi] == '*')
+                {   
+                    //treat astric as empty or null
+                    bool casea = ismatchhelper(s,si,p,pi+1);
+
+                    bool caseb = ismatchhelper(s,si+1,p,pi);
+
+                    return casea || caseb;
+                }
+            //Char does not match
+            return false;
+        }
+
+    bool isMatch(string s, string p) {
+       int si = 0; //pointer to s string 
+       int pi = 0; //pointer to p string 
+
+       return ismatchhelper(s,si,p,pi);
+    }
+};
+
+//983. Minimum Cost For Tickets
+https://leetcode.com/problems/minimum-cost-for-tickets/description/
+
+//did not fully understand the recursive solution
+the DP solution is the optimized solution anyway 
+
+class Solution {
+public:
+    int mincostTickets_helper(vector<int>& days, vector<int>& costs, int i)
+    {
+        //base
+        if(i>=days.size()) return 0;
+
+        //sol for case 1 day pass token 
+
+        int cost1 = costs[0] + mincostTickets_helper(days, costs, i+1);
+
+        int passendday = days[i] + 7 -1;
+        int j =i;
+        while(j<days.size() && days[j] <= passendday){
+            j++;
+        }
+        int cost7 = cost[1] + mincostTickets_helper(days,costs,j);
+
+        //30 day pass taken
+        passendday = days[i] +30-1;
+        j =i;
+        while(j<days.size() && days[j] <= passendday)
+            {
+                j++;
+            }
+        int cost30 = cost[2] +mincostTickets_helper(days,costs,j);
+        return min(cost1,min(cost7,cost30));
+    }
+
+
+
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+      return mincostTickets_helper(days,costs,0);
+    }
+};

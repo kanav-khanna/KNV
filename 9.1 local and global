@@ -1,0 +1,50 @@
+Global variable 
+- writtten outside a fucntion 
+- Accessable to all functions ...same value
+
+Code - 
+if i have a global variable called x and then i also have a loacl veriable called x ...in side the fucntion if i want to print the global x then i need to 
+cout<< ::x - global x
+cout<< x - local x
+
+Local variables 
+- written inside a fucntion 
+- Accessable inside that fucntion scope only 
+- scoped 
+
+
+////////////Memory layout of a program ////////////
+
+//How padding works 
+the compiler give the padding based on the highest sized elements nearest multiple 
+
+
+//Const keyword//Initialization list//Macros
+The cont keyword is used to declare a variable, function, or object is immutable meaning its value cannot be changed 
+
+- Const variable ...the value cannot be changed after Initialization
+- Const function ...it does not modify the sate of the object its called on 
+
+compiler may be able to store const in read only memory which can result in faster access times
+
+Const int *a = new //in this case since the const is before the star this pointer address can be changes but not the data
+int *const a = new int(2) //in this case the pointer will be const but the data will not be 
+
+//Mutable keyword can be used with the variable that is const if we want to cahnge the value
+
+*********MACROS*****
+Macros are pre processor directives that allow you to define constraints, functions or code snippets that can be used throughout your code 
+they typically defined using the # define directive and are evaluated by the preprocessor before the code is compiled.
+
+#define PI 3.15 //with this where ever in the program we use the keyword pi ...the compiler  will use its declared value 
+
+
+//Static keyword 
+
+multiple instances of a class can be created 
+
+Static data member - If in a class i declare a variable as static then all the objects of that call will use the same variables ...compared to normally 
+where each object has its own unique set of variables.
+
+Static member function - 
+There is no instance of that class being passed into that method 
