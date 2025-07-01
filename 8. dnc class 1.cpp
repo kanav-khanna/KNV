@@ -6,6 +6,8 @@ in merger sort we devide the array in the middle creating 2 parts the then 1st p
 the 2 big parts created at first and further devided with each iteration.
 After both parts have been sorted then they are put togather again for the final output.
 
+TC - O(nlog n)
+
 void merge(int arr[],int s,int e)
     {
         int mid = (s+e)/2;
