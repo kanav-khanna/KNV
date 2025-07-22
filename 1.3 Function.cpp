@@ -3,7 +3,7 @@ A function is a block of code that is linked to a well defined task
 
 In c++ you have to define a function before you call it. You cannot call it first and then have the definition under it.
 
-Incase you do want to do the above you need to declare the function before ..then it ca be defined later 
+Incase you do want to do the above you need to declare the function before ..then it can be defined later 
 
 // function call stack 
     this tracks function call and its info 

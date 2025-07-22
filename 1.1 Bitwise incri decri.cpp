@@ -36,6 +36,18 @@ Bitwise operator
 These do bit level operations. 
 
 5. Left Shift (<<)  //n times left shit a*2^n  (2 power n) left shift is used to multiply 
+
+Your original number was 5, and your new number is 20.
+
+And indeed, 5×4=20.
+
+So, by left-shifting the bits by 2, you multiplied the number by 4 (2^2). 
+If you had shifted it by just 1, you would have gotten 00001010, which is 10 in decimal (5×2^1).
+A shift by 3 would multiply it by 8 (2^3).
+
+This is why left shifts are often used in low-level programming for fast multiplication by powers of 2. 
+It's a single, very efficient operation for a computer's processor.
+
 0 0 0 0 0 1 0 1 << 2
 ------------
 0 0 0 1 0 1 0 0
@@ -58,7 +70,17 @@ Output 160 ........becasue 5 X (2 to the power 5 which is 32)
 
 0 0 0 1 0 0 0 0 >> 2
 ------------
-0 0 0 0 0 1 0 0
+0 0 0 0 0 1 0 0 
+The operation took your original number 16 and produced the number 4.
+
+And indeed, 16÷4=4.
+
+Every time you shift the bits one position to the right, you are effectively halving the number's value. Shifting by two positions halves it twice, which is the same as dividing by four.
+
+A Quick Note on Remainders
+The right shift operation performs integer division. This means it discards any remainder. For example, the number 17 is 00010001.
+
+17 >> 1 (17 divided by 2) results in 00001000, which is 8. The .5 from the true result of 8.5 is dropped.
 
 
 // VV important concept for MCQ////////////////////////////////
