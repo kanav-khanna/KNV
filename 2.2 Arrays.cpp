@@ -81,6 +81,36 @@ for(int j=i;j<3;j++)
         }
     };
 
+//Optimized solition of the above problem usig hash map - 
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> num_map;
+
+        // Iterate through the array a single time.
+        for (int i = 0; i < nums.size(); i++) {
+            int current_num = nums[i];
+            int complement = target - current_num;
+
+            // Check if the complement exists in the map.
+            // .count() is a fast way to check for a key's existence.
+            if (num_map.count(complement)) {
+                // If it exists, we found our pair.
+                // Return the complement's index and the current number's index.
+                return {num_map[complement], i};
+            }
+
+            // If we didn't find the complement, add the current number
+            // and its index to the map for future checks.
+            num_map[current_num] = i;
+        }
+
+        // Return an empty vector if no solution is found (though the
+        // problem guarantees one exists).
+        return {};
+    }
+};
+
  ///Question - print all triplets in an array 
  //pair of 3 
  //burte force solution
@@ -103,6 +133,56 @@ for(int j=i;j<3;j++)
      
  }
 //another question i should look at similart to the above one - 3 Sum – Triplet Sum in Array
+
+The brute force solution of the above problem will TLM when submitted ..the optimized approach is 2 pointer (probably still not the beast approach)
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n < 3) return ans; // Not possible to form a triplet
+
+        // 1. Sort the array
+        sort(nums.begin(), nums.end());
+
+        // 2. Iterate with the first pointer 'i'
+        for (int i = 0; i < n - 2; ++i) {
+            // Skip duplicate values for the first element
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            // 3. Set up two pointers
+            int low = i + 1;
+            int high = n - 1;
+
+            // 4. Find the triplet
+            while (low < high) {
+                int sum = nums[i] + nums[low] + nums[high];
+
+                if (sum == 0) {
+                    // Found a triplet
+                    ans.push_back({nums[i], nums[low], nums[high]});
+
+                    // Skip duplicates for the second and third elements
+                    while (low < high && nums[low] == nums[low + 1]) low++;
+                    while (low < high && nums[high] == nums[high - 1]) high--;
+
+                    // Move pointers inward
+                    low++;
+                    high--;
+                } else if (sum < 0) {
+                    // Sum is too small, need a larger number
+                    low++;
+                } else { // sum > 0
+                    // Sum is too large, need a smaller number
+                    high--;
+                }
+            }
+        }
+        return ans;
+    }
+};
 
 //Question sort 0s and 1s in the array all 0 first then 1s
  //could just use sort
