@@ -335,7 +335,7 @@ int main() {
     {
         if(arr[index]<0){
             swap(arr[index],arr[j]);
-            j++;
+            j++;  //j being 0 works fine because we only do ++ when element less than 0 so its not like index and ja rea always at the same spot
         }
     }
     
@@ -349,7 +349,7 @@ int main() {
 75. Sort Colors
 // easiest solution just sort this thing lol
 /// brute force solution 
-//the below solution has the time complexity of O(n) so even though its broot force its pretty good 
+//the below solution has the time complexity of O(n) so even though its broot force its pretty good
 class Solution {
     public:
         void sortColors(vector<int>& nums) { // this good solution
