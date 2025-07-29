@@ -289,6 +289,8 @@ int main()
 
 
 //transpose of a matrix ...vonvert columns to rows and rows t columns 
+//This code only works on a square matrix and will not work on other matrix 
+//important part to remember is that in second loop j=i //similar to how i print a triangle
 in this we notice that [0,0] index is swapped with [0,0]
                  while [0,1] with [1,0]
                         [2,0]     0,2
@@ -310,6 +312,33 @@ in this we notice that [0,0] index is swapped with [0,0]
           }
         }
       }
+
+    //Below is the code for a non square matrix - 
+    //https://leetcode.com/problems/transpose-matrix/
+      class Solution {
+public:
+    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        if (rows == 0) {
+            return {}; // Handle empty matrix case
+        }
+        int columns = matrix[0].size();
+
+        // Create a new result matrix with swapped dimensions.
+        // It will have 'columns' rows and 'rows' columns.
+        vector<vector<int>> ans(columns, vector<int>(rows));
+
+        // Loop through the original matrix.
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < columns; ++j) {
+                // Copy the element to its new transposed position.
+                ans[j][i] = matrix[i][j];
+            }
+        }
+
+        return ans;
+    }
+};
 //array extra class 
 //2 pointer approch questions 
 Question input array has apositive and negative numbers the output should be negative numbers of left side and positive on right side 
@@ -523,8 +552,78 @@ class Solution { //ignore this solution
 ////////2149. Rearrange Array Elements by Sign  //
 https://leetcode.com/problems/rearrange-array-elements-by-sign/description/
 
+//My original solution using swapping - 
+//This solution is not fully correct ...it does pass the initial test cases but it will not pass all of them since swapping will cause issues 
+//with maintain the required order of all the elements 
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        int i = 0;
+        int j = 1;
+        while(j<nums.size())
+            {   
+                //even
+                if(((i%2)==0)&&(nums[i]>0))
+                {
+                    i++;
+                    j++;
+                }
+                else if(((i%2)==0)&&(nums[i]<0)&&(nums[j]<0))
+                    {
+                        j++;
+                    }
+                else if(((i%2)==0)&&(nums[i]<0)&&(nums[j]>0))
+                    {
+                        swap(nums[i],nums[j]);
+                    }
+                //odd number
+                else if(((i%2)!=0)&&(nums[i]<0))
+                {
+                    i++;
+                    j++;
+                }
+                else if((((i%2)!=0)&&(nums[i]>0))&&(nums[j]>0))
+                    {
+                        j++;
+                    }
+                else if((((i%2)!=0)&&(nums[i]>0))&&(nums[j]<0))
+                    {
+                        swap(nums[i],nums[j]);
+                    }
+            }
+        return nums;
+    }
+};  
 
 
+///The actual correct solution for the above problem is - 
+just take a new array and place all the numbers where they belong in the new array
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        int n = nums.size();
+        
+        vector<int> ans(n, 0);
+
+        int pos_idx = 0;
+        int neg_idx = 1;
+
+       
+        for (int i = 0; i < n; i++) {
+        
+            if (nums[i] > 0) {
+                ans[pos_idx] = nums[i];
+                pos_idx += 2;
+            }
+            
+            else { // nums[i] < 0
+                ans[neg_idx] = nums[i];
+                neg_idx += 2;
+            }
+        }
+        return ans;
+    }
+};
 
 ///////2643. Row With Maximum Ones
 https://leetcode.com/problems/row-with-maximum-ones/description/
@@ -596,8 +695,7 @@ class Solution {      //time complexity
             }
            
         } 
-    
-        
+     
     };
  
 //// function to reverse a vector 
