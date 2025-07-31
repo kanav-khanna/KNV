@@ -803,7 +803,8 @@ class Solution {
 place each number at its index solution -
 we place the number at its position and we swap with the number at its position
 when we try  to move a duplicate to its position we will notice its already at its position so then a duplicate can be found  
-class Solution {
+//TC - O(n) 
+class Solution {    
     public:
         int findDuplicate(vector<int>& nums) {
          while(nums[0] != nums[nums[0]])  //while the element is not at its index in the array if it is stop and return --nums[nums[0]] index position of the number we are checking 
@@ -817,27 +818,52 @@ class Solution {
 /////missing elements from an array with duplicates 
 //not fully clear yet ......
 Method 1 - visited ...visit all the indexes and mark them as negative then
-Method 2 - Sorting + swapping 
+Method 2 - Sorting + swapping
 
 2- 
-int i = 0;
-while(i<n){
-    int index = a[i] -1;
-    if(a[i] != a[index])
-        {
-            swap(a[i],a[index])
+#include <iostream>
+#include <vector>
+#include <utility> // For std::swap
+
+void findMissing(std::vector<int>& a) {
+    int n = a.size();
+    int i = 0;
+
+    // --- PHASE 1: CYCLIC SORT ---
+    // Place each number at its correct index.
+    while (i < n) {
+        // The correct index for the number a[i] is a[i] - 1.
+        int index = a[i] - 1;
+
+        // Make sure the index is valid and the number is not already
+        // at its correct destination.
+        if (a[i] > 0 && a[i] <= n && a[i] != a[index]) {
+            std::swap(a[i], a[index]);
+        } else {
+            // If the number is in the right place or is a duplicate, move on.
+            i++; //This part is important ...this helps make sure we skip duplicates and keep moving 
+                 //in previous question we would just find duplicate and then loop stops here we see duplicate and incriment since we need missing element
         }
-    else{
-        i++
     }
-    for(int i=0;i<n;i++)
-        {
-            if(a[i] != i+1)
-                {
-                    cout<<i+1<<""
-                }
+
+    // --- PHASE 2: FIND MISSING NUMBERS ---
+    // Now that the array is sorted, find the discrepancies.
+    std::cout << "Missing numbers are: ";
+    for (i = 0; i < n; i++) {
+        // If the element at this index is not the correct number, it's missing.
+        if (a[i] != i + 1) {
+            std::cout << i + 1 << " ";
         }
+    }
+    std::cout << std::endl;
 }
+
+// Example usage:
+// int main() {
+//     std::vector<int> arr = {1, 1, 3, 5, 5}; // Missing 2 and 4
+//     findMissing(arr);
+//     return 0;
+// }
 
 
 /////First Repeating Element
@@ -881,7 +907,7 @@ class Solution {
           
           for(int i = 0;i<a.size();i++)
               {
-                  if(hash[a[i]] >1)
+                  if(hash[a[i]] >1)  //since the hash map already has all the calues this now returns the count of each one 
                       {
                           return i+1;
                       }
@@ -987,34 +1013,34 @@ class Solution {
   };
 
 
-  /////////////Wave print a matrix//////////////column wise 
+  /////////////Wave print a matrix//////////////column wise
   ///can i also do a row wise ?
-  #include<iostream>
-using namespace std;
+    #include<iostream>
+    using namespace std;
 
-void waveprint(vector<vector<int>>v)
-{
-        int m = v.size();
-        int n = v[0].size();
-        
-        for(int startcol =0; startcol<n;startcol++)
-        {
-            //even no of col -> top to bottom 
-            if((startcol&1) == 0){
-                for(int i = 0;i<m;i++)
-                {
-                    cout<<v[i][startcol]<<" ";
-                }
-            }
-            else{
-                //if odd number then bottom to top
-                for(int i = m-1;i>=0;i--)
+    void waveprint(vector<vector<int>>v)
+    {
+            int m = v.size();
+            int n = v[0].size();
+            
+            for(int startcol =0; startcol<n;startcol++)
+            {
+                //even no of col -> top to bottom 
+                if((startcol&1) == 0){
+                    for(int i = 0;i<m;i++)
                     {
-                    cout<<v[i][startcol]<<" ";
+                        cout<<v[i][startcol]<<" ";
+                    }
+                }
+                else{
+                    //if odd number then bottom to top
+                    for(int i = m-1;i>=0;i--)
+                        {
+                        cout<<v[i][startcol]<<" ";
+                    }
                 }
             }
-        }
-}
+    }
 
 int main() {
    vector<vector<int>>v{
@@ -1241,7 +1267,7 @@ class Solution {
         }
     };
 
-///////Maximum acerage subarray 
+///////Maximum average subarray 
 //BRUTE FORCE APPROCH 
 
 SET I = FIRST index and j = first index + k(this is the length of average sub array)
