@@ -131,7 +131,7 @@ while(start<=end)
     }
 return ans;
 
-//Find total occurance - total count of how amny times a element occurs in a array 
+//Find total occurance - total count of how any times a element occurs in a array 
 
 We can use the same code as above but the following formula needs to be used for total occurance 
 //Total occurance = Last occurance - first occurance +1;
