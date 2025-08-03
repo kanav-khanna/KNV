@@ -173,7 +173,7 @@ while(start<=end)
 
  if(ans+1 == 0)  //this code breaks on the last elements ...last element of array needs to handeled so if added 
     {
-        return n+1;
+        return n+1; //The final if block is a special case to handle when no elements are missing within the given range (e.g., [1, 2, 3]), correctly identifying that the missing number is the next one in the sequence (4).
     }
 return ans+1; 
 
@@ -230,6 +230,7 @@ How to know if your on line A or B ? arr[start] > arr[mid] -> line b and if i am
 
 //The below pivot element program is important becasue once we have the pivot element then we can apply binary search based on it
 //Since binary search cannot be applied on pivot elements ...like 16 and 2 .....if we know the pivot we can apply binary search to A part and B
+
 int find pivotindex(arr[], n)
     {
         int start = 0;
