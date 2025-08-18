@@ -15,7 +15,7 @@
         set<pair<int,int>> ans;
 
         while(j < nums.size())
-        {
+        { 
             int diff = nums[j] - nums[i];
             
             if(diff == k)
@@ -52,7 +52,7 @@ O n*logn time complexity
 
         while(start<=end)
             {
-                int mid = start +(end-start)/2;
+                int mid = start + (end-start)/2;
 
                 if(nums[mid] == x)
                     {
@@ -85,7 +85,7 @@ O n*logn time complexity
 };
 
 //658. Find K Closest Elements https://leetcode.com/problems/find-k-closest-elements/description/
-
+//i think this question is poorly written so amma ignore it 
 //Sort with respect to difference  ....brute force solution
 
 //2 pointer approch 
@@ -108,6 +108,7 @@ public:
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     
         int low = 0;
+        
         int high = arr.size()-1;
 
         while(high-low>=k)
@@ -201,6 +202,17 @@ Given a sorted array ...find x
 //in this we check if a[i] <= x if this confition is true then we do i =i*2 and keep checking till the condition is not true anymore
 //then we can Give binary search the i index and the i/2 index as ending and starting points for its search thus making a sub array 
 
+
+/*The goal of Exponential Search is to find an element in a sorted array. It's particularly useful when the array is very large or even theoretically infinite, and the element you're looking for is likely near the beginning.
+
+It works in two main steps:
+
+Find a Range: It rapidly finds a smaller range where the target element might exist by making exponential jumps.
+
+Binary Search: It performs a classic binary search on that smaller, more manageable range.
+
+However, the code you've provided has several significant bugs that prevent it from working. I'll explain the intended logic first and then show you the corrected version*/
+
 //Time complexity 
 the exponential part would have a complexity of O(log m) ..the while loop (M being the position it goes up to)
 
@@ -212,7 +224,7 @@ int bs( int a[],int start, int end, int x)
             {
                 if(a[mid] == x)
                     {
-                        return 0;
+                        return mid;
                     }
                 else if(a[mid]<x)
                     {
