@@ -1,6 +1,6 @@
 In a char array you do not need loops for input or output 
 You can just take input once and that will fill the array 
-and you can print without loop aswell 
+and you can print without loop aswell
 
 chat ch[10];
 
@@ -58,15 +58,9 @@ In ASCII, each character has a numeric code. For example:
 
 Now, the difference between 'a' and 'A' is:
 
-cpp
-Copy
-Edit
 'a' - 'A' = 97 - 65 = 32
 This difference (32) is constant for all lowercase-uppercase letter pairs. So to convert 'd' (100) to 'D' (68), you subtract 'a' and add 'A':
 
-cpp
-Copy
-Edit
 'd' - 'a' + 'A' = 100 - 97 + 65 = 68 = 'D'
 
 Logic ...if we have any lower case char and the we do -a (minus itself) then + A(its capital) ..then we can get the capital of said char 
@@ -120,7 +114,7 @@ class Solution {
         }
     };
 
-//Hardr question based on the above question - https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/description/
+//Harder question based on the above question - https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/description/
 //1209. Remove All Adjacent Duplicates in String II
 //bad soution ...
 class Solution {
@@ -166,7 +160,7 @@ If part is found, find() returns the starting index of where it occurs.
 
 If part is NOT found, find() returns a special value: string::npos.
 
-❓ What is string::npos?
+What is string::npos?
 string::npos is a constant that represents "no position".
 
 It’s defined as the largest possible value for size_t (typically 4294967295 or -1 cast to size_t).
@@ -187,8 +181,8 @@ class Solution {
         }
     };
 
-  Home work  ///what what named algos do we have in to find patterns in a string ?
-            //time complexity and implemntation of the erase function and its time complexity 
+  KNV questions  //any other algos to find patterns in a string ?
+            //time complexity and implemntation of the erase function
             //find funtion time complexity 
 
 //680. Valid Palindrome II
@@ -239,14 +233,14 @@ public:
 };
 
 
-//Homework - 539. Minimum Time Difference
+//another question i should do - 539. Minimum Time Difference
 //https://leetcode.com/problems/minimum-time-difference/description/
 //Hint convert all time to minutes then compare 
 //get the hours and minutes seperately with sub str then stoi funtion need to convert string to integer 
 //then get total minutes then sort the array 
 //edge case ?
 
-////My solution ....In the end the circular difference part .....was copied ..it is what it is 
+////My solution ....In the end the circular difference part .....was bad ..it is what it is 
 class Solution {
 public:
     int findMinDifference(vector<string>& timePoints) {
@@ -294,34 +288,26 @@ Odd-length: e.g. "aba" — center is the middle character (b)
 
 Even-length: e.g. "abba" — center is between two characters (bb)
 
-🔹 Odd Palindromes:
-cpp
-Copy
-Edit
+Odd Palindromes:
+
 int oddKaAns = expand(s, i, i);
 The center is one character (e.g. i = j = 2 for "aba")
 
 Expands outward: s[i-1] == s[j+1]
 
-🔹 Even Palindromes:
-cpp
-Copy
-Edit
+Even Palindromes:
+
 int evenKaAns = expand(s, i, i+1);
 The center is between two characters (e.g. "abba" between b and b)
 
 Starts with i and i+1, expands outward: s[i-1] == s[j+1]
 
-🔄 The expand() Function
-cpp
-Copy
-Edit
+The expand() Function
+
 int expand(string s, int i, int j)
 This function tries to expand outward from the center as long as the characters match.
 
-cpp
-Copy
-Edit
+
 while(i >= 0 && j < s.length() && s[i] == s[j]) {
     count++;
     i--;
@@ -374,7 +360,7 @@ class Solution {
 public:
     string decodeMessage(string key, string message) {
         char start = 'a';
-        char mapping[280] = {0};
+        char mapping[280] = {0}; 
 
         for(auto ch:key) //this loop same as for(int i = 0;i<key.length();i++) 
             {    
@@ -393,7 +379,7 @@ public:
                     }
                 else{
                     
-                     char decodechar = mapping[ch]; // What does this part do ?
+                     char decodechar = mapping[ch]; // What ???
                      //cout<<ch<<decodechar<<endl;
                      ans.push_back(decodechar);
 
@@ -556,5 +542,5 @@ public:
 
 };
 
-//Look into cutom comparator
+//Look into custom comparator
 //Look into the extra questions given above 
