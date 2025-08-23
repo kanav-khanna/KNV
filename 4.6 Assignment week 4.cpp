@@ -387,8 +387,10 @@ x
             {
                 return -1;
             }
+
         int start = 0;
         int end = 0;
+        
             for(int i =0;i<n;i++)
                 {
                     end+=arr[i];
@@ -536,7 +538,7 @@ start = mid+1;
                  if(possiblesol(stalls,k,mid))
                     {
                         ans = mid;
-                        start=mid+1; 
+                        start=mid+1;  
                     }
                 else{
                     end=mid-1;
@@ -603,7 +605,7 @@ public:
 //https://www.spoj.com/problems/EKO/
 
 //Odly enough according to the explaination of this question ..the blade that cuts the trees ..depending on its hight cuts all the trees in the given array together 
-//and not just 1 tree ...i was initially thinging we adjust the hight to cut one tree at a time but hats wrong 
+//and not just 1 tree ...i was initially thinking we adjust the hight to cut one tree at a time but thats wrong.
 
 //n = number of trees 
 //m - the minimum amount of wood thats required
@@ -620,8 +622,8 @@ Output:
 15
 
 Since 4 is the number of trees and 7 is the lenth of tree required 
-to find cut hight we can do - (20-1)+(15-1)+(10-1)+(17-1) //this would be for if the cutting balse is set to hight 1 then this is how much wood would be cut
-//Like this we can iterate the hight to the max possible whihc in this case is 20 ...so from 0-20 the subtract the tree hight to find whats being cut for each iternation till we find a good hight 
+to find cut hight we can do - (20-1)+(15-1)+(10-1)+(17-1) //this would be for if the cutting base is set to hight 1 then this is how much wood would be cut
+//Like this we can iterate the hight to the max possible which in this case is 20 ...so from 0-20 the subtract the tree hight to find whats being cut for each iternation till we find a good hight 
 
 
 //Binary search approach 

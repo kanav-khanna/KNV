@@ -481,7 +481,7 @@ https://leetcode.com/problems/find-and-replace-pattern/description/
 
 createmapping() turns any string into its normalized pattern (like "abb").
 
-It’s called:
+It's called:
 
 Once on the pattern
 
@@ -489,14 +489,11 @@ Once for each word
 
 If both normalized forms match, the word follows the same character structure as the pattern.
 
-Let me know if you'd like a visual walk-through of a specific example!
-
-
-
 class Solution {
 public:
-    //this function normalizes all the words and patterns into a similar format 
+    //this function normalizes all the words and patterns into a similar format
     //so that we can compare them and find the solution
+    
     void createmapping(string& str)
         {
             char start = 'a';

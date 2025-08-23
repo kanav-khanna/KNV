@@ -3,35 +3,28 @@ https://leetcodewizard.io/problem-database
 https://www.youtube.com/watch?v=fhdPyoO6aXI&list=PL5q3E8eRUieWtYLmRU3z94-vGRcwKr9tM
 https://www.tryexponent.com/practice?src=nav
 
-https://leetcode.com/problems/count-primes/  looks easy but couldnt solve it...
+https://leetcode.com/problems/count-primes/  looks easy but...
 
 https://www.geeksforgeeks.org/initialize-a-dynamic-array-in-cpp/ interesting ...
 
 https://leetcode.com/problems/move-zeroes/description/ --done
 
 leet code 28
-https://leetcode.com/problems/rotate-array/ -- already explained in vid but med question and need to do it  --done
+https://leetcode.com/problems/rotate-array/  --done
 
 ////////2149. Rearrange Array Elements by Sign  //
-https://leetcode.com/problems/rearrange-array-elements-by-sign/description/ --- Not done yet and kinda have no clue how to 
+https://leetcode.com/problems/rearrange-array-elements-by-sign/description/ 
 
 //169. Majority Element --this is solved but not the best solution i think 
 https://leetcode.com/problems/majority-element/description/
 
 
-//GFG company based questions 
+//GFG 
 https://www.geeksforgeeks.org/explore?page=4&company=Microsoft&sortBy=submissions
 
 
 
-Career
-
-This is a tier-based representation of tech companies in India. In most cases, you can realistically move up only one tier at a time. Identify where you currently stand and aim for the next tier above. With some luck (and the right timing), a two-tier jump is possible — especially from Tier 3 to Tier 1. Happy switching!
-
-Tier 1 ┌────────┐ │ FAANG │ --> Meta, Apple, Amazon, Netflix, Google │ │ (+ Microsoft, Nvidia, OpenAI often included now) └────────┘ │ ↓ Tier 2 ┌──────────────────────────────┐ │ Global Giants in India │ --> Adobe, Salesforce, SAP, IBM, Oracle │ High Pay MNC Dev Centers │ Cisco, VMWare, Qualcomm, etc. Product Cos (Freshworks etc) │ Flipkart, Razorpay, Swiggy, Ola └──────────────────────────────┘ │ ↓ Tier 3 ┌──────────────────────┐ │ Funded Indian Startups│ --> Series A+ startups like Zepto, Dunzo, CRED │ (Some chaos, some gold) └──────────────────────┘ │ Tier 4 ┌───────────────────────────────┐ │ Indian Tech Leaders │ --> Infosys, TCS, Wipro, HCL, LTIMindtree │ companies with 1k + employees. Usually service based. └───────────────────────────────┘ │ ↓ Tier 5 ┌──────────────────────┐ │ Early-stage/No-name │ --> Small bootstrapped startups, founder-led, │ Startups (me, you...)│ often 5-50 people, no brand recall └──────────────────────┘
-
-
-//////Video REDO required - 
+////// REDO required - 
 Optimized sieve and segmented sieve (segmented one i am not clear about)
 
 Did this solution but the solution needs to be better - 

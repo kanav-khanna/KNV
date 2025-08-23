@@ -76,7 +76,7 @@ TC- nlog(log n) - improved time complexity by fixing the 2 loops
     return sieve;
 }
 
-////To further optimize this algorith 
+////To further optimize this algo
 if the question mentions a sieve size that is super larger maybe as large as 10^6 
 
 For this we make a segmented sieve that does not start from 0. It will rather start from the low point mentioned in a question

@@ -1,5 +1,5 @@
 
-Prime numbers (number with only 2 factors)
+Prime numbers 
 Ways of finding prime number - 
 1.naive approch - if n = 10 then loop from 1 to 9 -> (n%i) == 0 ..then not prime else prime 
 2.sqrt approch  - factor will exist in less than root n ....it will always exist in less than root  n 
