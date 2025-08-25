@@ -11,6 +11,7 @@ recursion Code usually contain the following points-
 
 Time complexity - (no clue lol)
 
+//to understand recursion you need to first understand recursion :)
 
 //Factorial using recursion - 
 #include<iostream>
@@ -44,7 +45,9 @@ https://leetcode.com/problems/climbing-stairs/description/
 
 I have done this question before with a better soluton
 This below solution is only to learn recursion and will not actually work when submitted(TLE)
-The recursive solution has exonential time compleity
+The recursive solution has exponential time compleity
+
+**ways(n) = ways(n-1) + ways(n-2) .....below code is kinda like fibonacci series//////imp
 
 class Solution {
 public:
