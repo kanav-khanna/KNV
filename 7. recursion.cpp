@@ -2,14 +2,14 @@
 When a function calls itself directly or indirectly that is termed as recursion
 
 What to look in problem statements to validate if recursion can be used or not 
-solution of bigger problem is dependent on solution of a smaller problem (of same type) the recursion can be applied.
+solution of bigger problem is dependent on solution of a smaller problem (of same type) then recursion can be applied. 
 
 recursion Code usually contain the following points- 
 1. base condition - This is mandatory 
 2. recursive call - Also mandatory 
 3. additional proccessing  - Optional ...depends on the program 
 
-Time complexity - (other vid need to watch)
+Time complexity - (no clue lol)
 
 
 //Factorial using recursion - 
@@ -29,7 +29,7 @@ int factorial (int n)
     }
     
     int recursionkaans = n*(factorial(n-1));
-    int finalans = n * recursionkaans;
+    //int finalans = n * recursionkaans; 
     return finalans;
     
 }
@@ -64,11 +64,11 @@ public:
     }
 };
 
-//********* If you ever want to store data in a variable thats passed a a fucntion parameter and return that value 
+//********* If you ever want to store data in a variable thats passed as a fucntion parameter and return that value 
 // it needs to be a pass by refrence & or else your answer will be stored in a local variable and not the one being returned */
 
-H/W traverse array using recursion and find max element 
-h/W given digits then return the number 
+traverse array using recursion and find max element 
+given digits then return the number 
 
 
 ///////INCLUDE EXCLUDE pattern for recursion ////////////////

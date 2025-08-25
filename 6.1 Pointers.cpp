@@ -29,4 +29,4 @@ Arr
 
 //Refer to the code its just better like that lol
 
-Pointer vid 2 - x
+Pointer  2 - x
