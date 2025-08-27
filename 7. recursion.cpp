@@ -112,3 +112,34 @@ class Solution {
 https://leetcode.com/problems/coin-change/description/
 
 https://leetcode.com/problems/house-robber/description/
+
+//binary search rec
+int climbStairs(int arr[],int s,int e,int target) {
+        
+    if(s>e)
+    {
+        return -1;//element not found
+    }
+    
+    int mid = s+(e-s)/2;
+    if(arr[mid] == target)
+        { 
+        return mid;
+        }
+    else if(mid<target)
+    {
+        start = mid+1;
+        return climbStairs(arr,mid,e,target);
+    }
+    
+    else if(mid>target)
+    {
+        end = mid-1;
+        return climbStairs(arr,s,end,target);
+    }
+    
+
+    }
+
+//sub sequence of string using rec
+
