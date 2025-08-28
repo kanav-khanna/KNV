@@ -82,7 +82,7 @@ n length string will have 2 ki power n sub sequences
 
 https://www.geeksforgeeks.org/problems/cutted-segments1642/1
 Maximize The Cut Segments
-But again this solution will TLE because recursion is just that useless 
+But again this solution will TLE because recursion is just that useless  
 
 class Solution {
   public:
@@ -142,4 +142,39 @@ int climbStairs(int arr[],int s,int e,int target) {
     }
 
 //sub sequence of string using rec
+
+//322. Coin Change
+//https://leetcode.com/problems/coin-change/description/
+class Solution {
+public:
+    int coinCange(vector<int>& coins, int amount) {
+        //base
+        if(amount == 0)
+            {
+                return 0;
+            }
+        int mini = INT_MAX; 
+        int ans = INT_MAX;
+
+        for(int i =0;i<coins.size();i++)
+            {
+                int coin = coins[i];
+
+                //use coin when values <=amount
+                if(coin<=amount)
+                    {   
+                        int recans = coinCange(coins,amount-coin);
+                        if(recans != INT_MAX)
+                            {
+                                ans = 1+recans;
+                            }
+                        ans = 1 + recans;
+                    }
+            
+                mini = min(mini, ans);
+             }
+    return mini;
+
+    }
+};
 
