@@ -624,4 +624,267 @@ public:
     }
 };
 
+////tortoise algorithm//slow & fast approch  
+//Helps reduce time complexity
 
+//slow pointer moves 1 step forward  ...and slow will only move 1 step forward when the fast pointer has the space to move 2 steps forward
+//fast pointer moves 2 steps forward
+//quickly find the middle node
+
+ListNode* middleNode(ListNode* head) { //Need to use this in OA insted of the basic ass solution
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast != NULL) //fast->next != NULL if in even case where if i have 6 elements question states mid element is  3rd not 4th 
+            {
+                fast = fast->next;
+                if(fast != NULL)
+                    {
+                       fast = fast->next; 
+                       slow = slow->next;
+                    }
+                
+            }
+            return slow;
+
+
+
+//234. Palindrome Linked List
+https://leetcode.com/problems/palindrome-linked-list/description/
+//TC - O(N)
+
+1.Break into 2 halves.
+2.Reverse the second half.
+3.Compare both of them.
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) {
+            return true; // A list with 0 or 1 node is always a palindrome
+        }
+        
+        // 1. Find the end of the first half
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while (fast->next != nullptr && fast->next->next != nullptr) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+
+        // 2. Reverse the second half
+        ListNode* secondHalfHead = slow->next; // FIX: Start of the second half
+        slow->next = nullptr; // FIX: Split the list into two halves
+
+        ListNode* prev = nullptr;
+        ListNode* current = secondHalfHead;
+        while (current != nullptr) {
+            ListNode* nextNode = current->next;
+            current->next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        // After this loop, 'prev' is the new head of the reversed second half
+
+        // 3. Compare the two halves
+        ListNode* firstHalfHead = head;
+        ListNode* reversedSecondHalfHead = prev; // FIX: Use the correct pointer
+
+        while (firstHalfHead != nullptr && reversedSecondHalfHead != nullptr) {
+            if (firstHalfHead->val != reversedSecondHalfHead->val) {
+                return false; // Mismatch found
+            }
+            firstHalfHead = firstHalfHead->next;
+            reversedSecondHalfHead = reversedSecondHalfHead->next;
+        }
+
+        return true; // All values matched
+    }
+};
+
+
+//Check Cycle in a linked list 
+
+///i did this with map ....bad solution lol
+//https://leetcode.com/problems/linked-list-cycle/
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+
+        map<ListNode*, bool> table;
+
+        ListNode* temp = head;
+
+        while(temp!=NULL)
+            {
+                if(table[temp] == false)
+                    {
+                        table[temp] = true;
+                    }
+                else{
+                    //cycle present
+                    return true;
+                }
+                temp = temp->next;
+            }
+    return false;
+    }
+};
+
+Questions Asked -
+1.check for loop 
+2.starting point of loop 
+3.remove loop
+
+//Another approach to check loop //tortoise algorithm
+O(N)
+bool checkloop(Node* &head)
+    {
+        Node* slow = head;
+        Node* fast = head;
+
+        while(fast != NULL)
+            {
+                fast = fast->next;
+
+                if(fast != NULL)
+                    {
+                        fast = fast->next;
+                        slow = slow->next;
+                    }
+                if(fast == slow)
+                    {
+                        return true;
+                    }
+            }
+        return flase;
+        
+    }
+
+//starting point of loop 
+1. we use the slow fast pointer to find that loop exits ...both pointers will point to the same element
+2. slow = head 
+3.start moving the slow and the fast pointer 1 step forward 
+4.where the 2 pointers meet is the starting point of the loop
+
+//Why does this even work though ? a+b = k*c //long ass proof dont care lol
+//the fast pointer does a number of cycles before it meets the slow one ....
+
+//142. Linked List Cycle II
+//https://leetcode.com/problems/linked-list-cycle-ii/submissions/1759312635/
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        
+        ListNode *slow = head;
+        ListNode *fast = head;
+
+        while(fast != NULL)
+            {
+                fast = fast->next;
+                
+
+                if(fast != NULL)
+                    {   
+                        fast = fast->next;
+                        slow = slow->next;
+                    }
+                
+                if(fast == slow)
+                    {
+                        break;
+                    }
+                
+            }
+        if(fast == NULL)
+            {   
+                //no cycle present
+                return NULL;
+            }
+        
+    slow = head;
+
+    while(slow!=fast)
+        {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        
+        return fast;
+    }
+};
+
+
+//Remove a loop 
+//since i already know the starting point of the loop i can just remove the loop 
+
+bool checkloop(Node* &head)
+    {
+        Node* slow = head;
+        Node* fast = head;
+
+        while(fast != NULL)
+            {
+                fast = fast->next;
+
+                if(fast != NULL)
+                    {
+                        fast = fast->next;
+                        slow = slow->next;
+                    }
+                if(fast == slow)
+                    {
+                        return true;
+                    }
+            }
+        return flase;
+        
+    }
+
+void removeLoop(Node* &head)
+    {
+        Node* slow = head;
+        Node* fast = head;
+
+        while(fast != NULL)
+            {
+                fast = fast->next;
+                
+                if(fast != NULL)
+                    {
+                        fast=fast->next;
+                        slow=slow->next;
+                    }
+                if(fast == slow)
+                    {
+                        break;
+                    }
+            }
+        
+            slow = head;
+
+            while(fast!= slow)
+                {
+                    slow=slow->next;
+                    fast=fast->next;
+                }
+            node* temp = slow;
+
+            while(temp->next != slow)
+                {
+                    temp = temp->next;
+                }
+
+            temp->next = NULL;
+    }
+
+//Add 1 to a linked list
+//132
+   +1
+  133 ///not +1 to each individual element like i intially thought.
+
+  //if carry is 0 i dont need to go throught the whole linked list
+  //since addition is done from right to left ...reverse the linked list then do what i need
+  //for the final answer i need to reverse it again ....
