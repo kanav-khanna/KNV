@@ -888,3 +888,69 @@ void removeLoop(Node* &head)
   //if carry is 0 i dont need to go throught the whole linked list
   //since addition is done from right to left ...reverse the linked list then do what i need
   //for the final answer i need to reverse it again ....
+
+Node* reverse(Node* &head)
+    {
+        Node* prev = NULL
+        Node* curr = head;
+
+        while(curr!=NULL)
+            {
+                Node* temp = curr->next;
+                curr->next = prev;
+                prev = curr;
+                curr = temp;
+            }
+     return prev;   
+    }
+
+
+void addOne(Node* &head)
+    {
+        //reverse 
+
+        head = reverse(head);
+
+        //add one 
+        int carry = 1;
+        node* temp = head;
+        while(temp->next != NULL) //stop loop before last node so i can handle case where new node insertion needed 
+        {   
+            int totalsum = temp->data + carry;
+            int digit = totalsum%10;
+            carry = totalsum/10;
+            temp->data = digit;
+            temp = temp->next;
+
+            if(carry == 0) //only adding 1 to the first elemnt so of we have no carry no need to traverse the whole thing
+                {
+                    break;
+                }
+        }
+
+        if(carry!=0){
+        int total sum = temp->data +carry;
+        int digit = totalsum%10;
+        carry = totalsum/10;
+        
+        temp->data = digit
+        if(carry!=0)
+            {
+                Node *newNode = new Node;
+                temp->next = newNode;
+
+            }
+        }
+
+        //reverse
+        head = reverse(head);
+    }
+    
+another similar question i should do - 
+//https://leetcode.com/problems/add-two-numbers/description/
+
+
+
+
+    ///////VVV IMP
+Linked list reverse in groups of k 
