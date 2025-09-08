@@ -950,7 +950,140 @@ another similar question i should do -
 //https://leetcode.com/problems/add-two-numbers/description/
 
 
+ class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* dummy=new ListNode();
+        ListNode* temp=dummy;
+        int carry=0;
+        while(l1!=NULL || l2!=NULL || carry){
+            int sum=0;
+            if(l1!=NULL){
+                sum+=l1->val;
+                l1=l1->next;
+            }
+            if(l2!=NULL){
+                sum+=l2->val;
+                l2=l2->next;
+            }
+            sum+=carry;
+            carry=sum/10;
+            ListNode* newnode=new ListNode(sum%10);
+            temp->next=newnode;
+            temp=temp->next;
+        }
+        return dummy->next;
+    }
+};
 
 
-    ///////VVV IMP
+
+
+ ///////VVV IMP
 Linked list reverse in groups of k 
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+//this question took me way to long to do :(
+
+class Solution {
+public:
+    int length(ListNode* head)
+        {
+            ListNode* temp = head;
+            int count = 0;
+
+            while(temp!=NULL)
+                {
+                    count++;
+                    temp = temp->next;
+                }
+           return count; 
+        }
+
+    ListNode* reverseKGroup(ListNode* head, int k) {   
+        if(head == NULL || head->next == NULL)//base case
+            {
+                return head;
+            }
+        
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+        ListNode* nextNode = NULL;
+        int pos = 0;
+
+        int len = length(head); 
+
+        if(len<k)
+            {
+                return head;
+            }
+
+        while(pos<k){
+        //reverse the first nodes
+        nextNode = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = nextNode;
+        pos++;
+        }
+        ListNode* recans = NULL;
+        //let recursion do the rest ?
+        if(nextNode != NULL)
+            {
+                recans = reverseKGroup(nextNode,k);
+                head->next = recans;
+            }
+        
+        return prev;
+         
+    }
+};
+
+other questions i should do  
+//sort 0,1,2s in a linked list 
+//Remove duplicates from sorted linked list
+//Sort a linked list  quick sort/merge sort with is better for linked list/array
+//add 2 linked list
+
+
+
+//Delete N nodes after M nodes of a linked list
+//https://www.geeksforgeeks.org/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/1
+
+class Solution {
+  public:
+    Node* linkdelete(Node* head, int n, int m) {
+        // code here
+         
+        if(!head)
+            {
+                return head;
+            }
+            
+        Node* it = head;
+        
+        for(int i = 0;i<m-1;i++)
+            {
+                if(!it) return head; //nodes not available
+                it=it->next;
+            }
+            
+        //it at m
+        if(!it) return head; 
+        Node* mthNode = it;
+        it = mthNode->next;
+        for(int i = 0;i<n;i++)
+            {
+                if(!it) break; 
+                Node*temp = it->next;
+                delete it;
+                
+                it = temp;
+                
+            }
+        
+         mthNode->next = it;
+         
+         linkdelete(it,n,m);
+         return head;
+    }
+};
