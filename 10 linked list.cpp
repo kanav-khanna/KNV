@@ -13,7 +13,7 @@ Types-
 #include<iostream>
 using namespace std;
 
-class node;;{
+class node{
     
     public:
     int data;
@@ -525,7 +525,7 @@ void deleteNode(Node* &head, Node* &tail, int data, int position)
         //delete from tail 
         Node* prevNode = tail->prev;
         prevNode->next = NULL;
-        tail->prev - NULL;
+        tail->prev = NULL;
         delete tail;
         tail = prevNode;
     }
@@ -588,10 +588,11 @@ public:
                 currNode = nextval;
             }
         
-        return prevNode;
+        return prevNode; //after reverse prev is the new head of the linekd list sice current points to null when loop ends
         
     }
 };
+
 ///Middle of a linked list 
 https://leetcode.com/problems/middle-of-the-linked-list/
 //bad time complexity since i have to do 2 passes of the linked list. //tortoise algorithm needed 
@@ -1087,3 +1088,35 @@ class Solution {
          return head;
     }
 };
+
+
+//21. Merge Two Sorted Lists
+//https://leetcode.com/problems/merge-two-sorted-lists/
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        
+        ListNode* dummy = new ListNode(0);;
+        ListNode* head = dummy;
+
+        while(list1 && list2)
+            {
+                if(list1->val <= list2->val)
+                    {
+                        head->next = list1;
+                        list1 = list1->next;
+                    }
+                else{
+                    head->next = list2;
+                    list2 = list2->next;
+                }
+                head = head->next;
+            }
+        head->next = list1?list1:list2;
+        return dummy->next;
+    }
+        
+};
+
+//https://www.hackerrank.com/challenges/get-the-value-of-the-node-at-a-specific-position-from-the-tail/problem
