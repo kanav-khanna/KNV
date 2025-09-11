@@ -1118,5 +1118,98 @@ public:
     }
         
 };
-
+//Get Node Value
 //https://www.hackerrank.com/challenges/get-the-value-of-the-node-at-a-specific-position-from-the-tail/problem
+
+int getNode(SinglyLinkedListNode* llist, int positionFromTail) {
+    
+    //find length 
+    SinglyLinkedListNode* tmp = llist;
+    int count = 0;
+    while(tmp != NULL)
+        {
+            count++;    
+            tmp = tmp->next;
+                
+        }
+    
+    int position = count - positionFromTail-1;
+   
+    tmp = llist;
+    
+    for(int i = 0;i<position;i++)
+        {
+            tmp = tmp->next;
+            
+        }
+     int ans = tmp->data;
+     
+     return ans;
+}
+
+//160. Intersection of Two Linked Lists
+https://leetcode.com/problems/intersection-of-two-linked-lists/description/
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *a = headA;
+        ListNode *b = headB;
+
+        while(a->next!=NULL && b->next != NULL)
+                {   
+                    if(a==b)
+                        {
+                            return a; //length same case
+                        }
+                    a = a->next;
+                    b = b->next;   
+                }
+        
+
+        if(a->next == NULL)
+            {
+                //this means b LL is bigger
+                //but how much bigger
+                int lenb = 0;
+                while(b->next !=NULL)
+                    {
+                        lenb ++;
+                        b = b->next;
+                    }
+                while(lenb)
+                    {
+                        lenb --;
+                        headB = headB->next;
+                    }
+            }
+        else
+        {
+                //this means a LL is bigger
+                //but how much bigger
+                int lena = 0;
+                while(a->next != NULL)
+                    {
+                        lena ++;
+                        a= a->next;
+                    }
+                while(lena)
+                    {
+                        lena --;
+                        headA = headA->next;
+                    }
+        }
+
+        while(headA!=headB)
+            {
+                headA = headA->next;
+                headB = headB->next;
+                
+
+            }
+        
+        return headA;
+
+
+    }
+};
