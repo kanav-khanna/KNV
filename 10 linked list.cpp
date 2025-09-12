@@ -878,7 +878,7 @@ void removeLoop(Node* &head)
                     temp = temp->next;
                 }
 
-            temp->next = NULL;
+            temp->next = NULL; 
     }
 
 //Add 1 to a linked list
@@ -917,9 +917,9 @@ void addOne(Node* &head)
         node* temp = head;
         while(temp->next != NULL) //stop loop before last node so i can handle case where new node insertion needed 
         {   
-            int totalsum = temp->data + carry;
-            int digit = totalsum%10;
-            carry = totalsum/10;
+            int totalsum = temp->data + carry; //add 1
+            int digit = totalsum%10; 
+            carry = totalsum/10; //find carry ...will be 0 if no carry 
             temp->data = digit;
             temp = temp->next;
 
@@ -929,8 +929,8 @@ void addOne(Node* &head)
                 }
         }
 
-        if(carry!=0){
-        int total sum = temp->data +carry;
+        if(carry!=0){ //proccess the last node 
+        int totalsum = temp->data + carry;
         int digit = totalsum%10;
         carry = totalsum/10;
         
@@ -1097,7 +1097,7 @@ class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         
-        ListNode* dummy = new ListNode(0);;
+        ListNode* dummy = new ListNode(0);
         ListNode* head = dummy;
 
         while(list1 && list2)
