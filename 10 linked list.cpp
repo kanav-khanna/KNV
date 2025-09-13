@@ -1213,3 +1213,93 @@ public:
 
     }
 };
+
+
+///Flattening a Linked List
+//https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1
+
+Node *merge(Node *a, Node *b)
+    {
+        if(!a) return b;
+        if(!b) return a;
+        
+        Node *ans = 0;
+        
+        if(a->data<b->data)
+            {
+                ans = a;
+                a->bottom = merge(a->bottom,b);
+            }
+        else{
+            ans = b;
+            b->bottom = merge(a,b->bottom);
+        }
+        return ans;
+    }
+
+class Solution {
+  public:
+    Node *flatten(Node *root) {
+        // code here
+        if(!root)return 0;
+        
+        Node*mergeLL = merge(root,flatten(root->next));
+        return mergeLL; 
+    }
+};
+
+//Rotate list 
+//https://leetcode.com/problems/rotate-list/
+
+class Solution {
+public:
+
+    int getLength(ListNode* head)
+        {   ListNode* temp = head;
+            int count = 0;
+            while(temp!=NULL)
+                {   
+                    count++;
+                    temp = temp->next;
+                }
+            return count;
+    }
+
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(head == NULL) return head;
+
+        int len = getLength(head);
+        
+        int actualRotatek = (k%len);
+
+        if(actualRotatek == 0)
+            {
+                return head;
+            }
+         
+        int newLastNodepos = len-actualRotatek-1;
+
+        
+        ListNode* newLastNode = head;
+
+        for(int i = 0;i<newLastNodepos;i++)
+            {
+                newLastNode = newLastNode->next;
+            }
+
+        ListNode* newHead = newLastNode->next;
+        newLastNode->next = NULL;
+
+        ListNode* it = newHead;
+
+        while(it->next != NULL)
+            {
+                it = it->next;
+            }
+        
+        it->next = head;
+
+        return newHead;
+        
+    }
+};
