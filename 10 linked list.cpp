@@ -1303,3 +1303,35 @@ public:
         
     }
 };
+
+//328. Odd Even Linked List
+//https://leetcode.com/problems/odd-even-linked-list/description/
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        
+        if(head == NULL or head->next == NULL)
+            {
+                return head; 
+            }
+        
+        ListNode *h1 = head;//ODD node list 
+        ListNode *h2 = head->next;//even node list 
+
+        ListNode *evenHead = h2;
+
+        while(h2!=NULL && h2->next != NULL)
+                {
+                    h1->next = h2->next;
+                    h2->next = h2->next->next;
+                    h1 = h1->next;
+                    h2 = h2->next;
+                }
+            
+        //attach the 2 lists ..
+        h1->next = evenHead;
+
+        return head;
+    }
+};
