@@ -1335,3 +1335,67 @@ public:
         return head;
     }
 };
+
+//2816. Double a Number Represented as a Linked List
+//https://leetcode.com/problems/double-a-number-represented-as-a-linked-list/
+//time complexity of this kinda sucks.
+class Solution {
+public:
+    ListNode* doubleIt(ListNode* head) {
+        //reverse the original 
+
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+
+        while(curr != NULL)
+            {
+                ListNode* next = curr->next;
+                curr->next = prev;
+                prev = curr;
+                curr = next;
+            }
+
+        //update head
+        head = prev;
+
+        //creaate a new linked list with dummy
+        ListNode* newHead = new ListNode(0);
+        ListNode* newTail = newHead;
+        int carry = 0;
+
+        //double each
+        while(head!=NULL || carry != 0)
+            {
+                int sum = carry + (head?head->val*2:0);
+                carry = sum/10;
+                sum = sum%10;
+                //create a new node 
+                newTail->next = new ListNode(sum);
+                newTail = newTail->next;
+                //move to the next node
+                if(head)
+                    {
+                        head = head->next;
+                    }
+        }
+
+        //reverse again 
+        //this should have been a function but i am toooooooo smart
+        
+        prev = NULL;
+        curr = newHead->next;
+
+        while(curr != NULL)
+            {
+                ListNode* next = curr->next;
+                curr->next = prev;
+                prev = curr;
+                curr = next;
+            }
+        
+        //update new head
+        newHead->next = prev;
+
+        return newHead->next;
+    }
+};
