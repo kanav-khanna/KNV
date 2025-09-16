@@ -1399,3 +1399,107 @@ public:
         return newHead->next;
     }
 };
+
+//148. Sort List
+//https://leetcode.com/problems/sort-list/description/
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        
+        ListNode* dummy = new ListNode(0);;
+        ListNode* head = dummy;
+
+        while(list1 && list2)
+            {
+                if(list1->val <= list2->val)
+                    {
+                        head->next = list1;
+                        list1 = list1->next;
+                    }
+                else{
+                    head->next = list2;
+                    list2 = list2->next;
+                }
+                head = head->next;
+            }
+        head->next = list1?list1:list2;
+        return dummy->next;
+    }
+    ListNode* sortList(ListNode* head) {
+        if(head == NULL || head->next == NULL)
+            {
+                return head;
+            }
+        
+        //mid point 
+        ListNode* fast = head;
+        ListNode* slow = head;
+
+        while(fast->next != NULL)
+            {
+                fast = fast->next;
+
+                if(fast->next != NULL)
+                    {
+                       fast = fast->next;
+                       slow = slow->next; 
+                    }
+            }
+        
+        ListNode*left = head;
+        ListNode*right = slow->next;
+        slow->next =NULL;
+
+        //sort RE
+
+        left = sortList(left);
+        right = sortList(right);
+
+        //merge
+
+        ListNode *mergeLL = mergeTwoLists(left,right);
+
+        return mergeLL;
+
+    }
+};
+
+//2181. Merge Nodes in Between Zeros
+//https://leetcode.com/problems/merge-nodes-in-between-zeros/
+
+
+class Solution {
+public:
+    ListNode* mergeNodes(ListNode* head) {
+        
+    
+        ListNode* prev = head;
+        ListNode* temp = head->next;
+        
+        int sum = 0;
+
+       
+        while (temp != NULL) {
+            
+            if (temp->val != 0) {
+                // Case 1: Keep adding to the sum.
+                sum += temp->val;
+
+            } else { 
+                prev->next->val = sum;
+
+                prev = prev->next;
+                
+                sum = 0;
+            }
+
+            temp = temp->next;
+        }
+        
+        
+        prev->next = NULL;
+        
+        return head->next;
+    }
+};
