@@ -739,5 +739,45 @@ class Solution {
         return ans;
     }
 };
+1021. Remove Outermost Parentheses
+//https://leetcode.com/problems/remove-outermost-parentheses/description/?envType=problem-list-v2&envId=stack
+class Solution {
+public:
+    string removeOuterParentheses(string s) {
+        stack<char> st; 
+        string ans = "";  
 
+        // Traverse each character of the input string
+        for (int i = 0; i < s.length(); i++) {
+            
+            
+            if (s[i] == '(') {
+                st.push('(');  
+                
+                // If stack size > 1, this '(' is not the outermost
+                // So, include it in the result
+                if (st.size() > 1) ans += s[i]; 
+            }
+            
+            // If the current character is a closing bracket ')'
+            else {
+                // If stack size > 1, then this ')' is not the outermost
+                // So, we include it in the result
+                if (st.size() - 1 != 0) {
+                    st.pop();         // remove its matching '(' from stack
+                    ans += s[i];      // add this ')' to result
+                }
+                // Otherwise, this ')' is the matching closing of the outermost '('
+                // So, just pop it and don't add it to the result
+                else {
+                    st.pop();
+                    continue;  // skip adding it
+                }
+            }
+        }
+
+        // Return the string without outer parentheses
+        return ans;
+    }
+};
 //https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/description/?envType=problem-list-v2&envId=stack

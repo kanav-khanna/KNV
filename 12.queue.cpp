@@ -103,7 +103,7 @@ class queue{
     bool getSize(){
         if(front == -1 && rear == -1)
             {
-                return 0; //forgot this
+                return 0; //need this since rear-front+1 gives wring value on empty case
             }
         else{
         return rear-front+1;
@@ -170,7 +170,7 @@ class cqueue{
                     arr[rear] = val;
                 }
             else{
-                rear++
+                rear++;
                 arr[rear] = val;
             }
         }
@@ -188,7 +188,7 @@ class cqueue{
         else if(front == rear)
             {
                 arr[front] = -1;
-                front++; 
+                front++; //ohhh noo
                 front = -1;
                 rear = -1;
             }
@@ -201,7 +201,7 @@ class cqueue{
             arr[front] = -1;
             front++;
         }
-    }
+    } 
 }
 
 //Doubly ended queue 
@@ -454,3 +454,130 @@ int main()
 
     return 0;
 }
+
+
+//Reverse a queue
+..using stack?
+
+void reverseQueue(queue<int> &q)
+    {
+        stack<int> s;
+
+            while(!q.empty)
+                {
+                    int frontElement = q.front();
+                    q.pop();
+
+                    s.push(frontElement);
+                }
+            while(!s.empty())
+                {
+                    int element = s.top();
+                    s.pop();
+
+                    q.push(element);
+                }
+    }
+int main()
+    {
+        queue<int> q;
+
+        p.push(10);
+        p.push(20);
+        p.push(30);
+        p.push(40);
+        p.push(50);
+
+        reverseQueue(q);
+
+        while(!q.empty)
+            {
+                int element = q.front();
+                q.pop();
+                cout<<element;
+            }
+    }
+
+
+//Reverse K elements 
+
+void reverseFirstk(){
+    stack<int> s;
+    //push first k into stack 
+        for(int i = 0;i<k;i++)
+            {
+                int temp = q.front();
+                q.pop();
+                s.push(temp);
+            }
+    //push all k element into queue
+
+    while(!s.empty)
+            {
+                int temp = s.top();
+                s.pop();
+                q.push(temp);
+            }
+    //pop and push first(n-k) elements into queue again
+
+    for(int i = 0;i<(n-k);i++)
+            {
+                int temp = q.front();
+                q.pop();
+                q.push(temp);
+            }
+
+}
+//
+//Interleave the First Half of the Queue with Second Half
+https://www.geeksforgeeks.org/problems/interleave-the-first-half-of-the-queue-with-second-half/1
+input -> 10,20,30,40,50,60,70,80
+output-> 10,50,20,60,30,70,40,80
+ 
+//using queue and not stack since that would reverse the order 
+class Solution {
+  public:
+    void rearrangeQueue(queue<int> &q) {
+        // code here
+        int half = q.size()/2;
+        
+        queue<int> q1;
+        
+        
+        //push first half of original queue into second queue
+        for(int i = 0;i<half;i++)
+            {
+                int temp = q.front();
+                q.pop();
+                q1.push(temp);
+            }
+        
+        //merge both into the original queue
+        
+        for(int i = 0;i<half;i++)
+            {
+                int temp = q1.front();
+                q1.pop();
+                
+                q.push(temp);
+                
+                temp = q.front(); 
+                q.pop();
+                
+                q.push(temp); //rear ma push brooooo
+            }
+        
+    }
+};
+
+
+//First negitive integer in every window of k
+
+//any window questions i see just apply sliding window ...ezz pzz 
+
+input 2,-5,4,-1,-2,0,5
+k = 3 
+window: 2,-5,4
+        -5,5,-1 ...
+
+
