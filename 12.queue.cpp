@@ -629,6 +629,7 @@ void PintFirstNeg(int *arr, int n, int k = 3)
 }
 
 //Find non repeating char in a stream
+//similar question maybe i should solve ...https://leetcode.com/problems/first-unique-character-in-a-string/
 int main(){
 string str = "ababc"
 queue<char> q;
@@ -637,8 +638,8 @@ int freq[26] ={0};
 for(int i = 0;i<str.length();i++)
     {
         char ch = str[i];
-        freq[ch-'a']++;
-        q.push(ch);
+        freq[ch-'a']++;//convert char to int
+        q.push(ch); //push char to queue
 
         //answer find karo
 
@@ -646,7 +647,7 @@ for(int i = 0;i<str.length();i++)
             {
                 char frontChar = q.front();
 
-                if(freq[frontChar-'a']>1)
+                if(freq[frontChar-'a']>1) //again convert char to number and check frequency 
                     {
                         //not the as
                         q.pop();
@@ -666,3 +667,9 @@ if(q.empty())
     }
 
 }
+
+//Gas station or circular game
+
+
+
+
